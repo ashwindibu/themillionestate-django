@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'base',
+    'property',
+    'admin_panel',
 ]
 
 MIDDLEWARE = [
@@ -73,14 +75,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'millionestate.wsgi.application'
 
+AUTH_USER_MODEL = 'base.Account'
+
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'real_estate',
+        'USER': 'root',
+        'PASSWORD': 'motion@10',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 
@@ -126,6 +134,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'assets' ),
 ]
 
+#MediaFile Configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR /'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
