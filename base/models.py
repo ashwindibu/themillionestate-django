@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from property.models import City
-
 
 # Create your models here.
 
@@ -41,7 +39,7 @@ class Account(AbstractBaseUser):
     email               = models.EmailField(max_length=100, unique=True)
     phone_number        = models.CharField(max_length=50)
     profile             = models.ImageField(upload_to='photo/user_profile')
-    city_id             = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
+    city                = models.CharField(max_length=100)
     usertype_id         = models.ForeignKey(UserType, on_delete=models.SET_NULL, null=True)
 
     # required

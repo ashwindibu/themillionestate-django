@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-        <!-- ============================================================== -->
+               <!-- ============================================================== -->
         <!-- Start Page Content here -->
         <!-- ============================================================== -->
 
@@ -24,121 +24,104 @@
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Zircos</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard </a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Real Estate</a></li>
                                         <li class="breadcrumb-item active">Dashboard</li>
                                     </ol>
                                 </div>
-                                <h4 class="page-title">Dashboard</h4>
+                                <h4 class="page-title">Real Estate Dashboard</h4>
                             </div>
                         </div>
                     </div>
                     <!-- end page title -->
 
                     <div class="row">
-                        <div class="col-lg-6 col-xl-3">
-                            <div class="card widget-box-three">
-                                <div class="card-body">
-                                    <div class="float-right mt-2">
-                                        <i class="mdi mdi-chart-areaspline display-3 m-0"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <p class="text-uppercase font-weight-medium text-truncate mb-2">Statistics</p>
-                                        <h2 class="mb-0"><span data-plugin="counterup">34578</span> <i class="mdi mdi-arrow-up text-success font-24"></i></h2>
-                                        <p class="text-muted mt-2 m-0"><span class="font-weight-medium">Last:</span> 30.4k</p>
-                                    </div>
-                                </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card-box tilebox-two border-success">
+                                <i class="mdi mdi-currency-usd float-right"></i>
+                                <h6 class="text-success text-uppercase mb-3 mt-2">This Month Revenue</h6>
+                                <h2 class="mb-2">$<span data-plugin="counterup">12,455</span></h2>
                             </div>
                         </div>
-                        <!-- end col -->
 
-                        <div class="col-lg-6 col-xl-3">
-                            <div class="card widget-box-three">
-                                <div class="card-body">
-                                    <div class="float-right mt-2">
-                                        <i class="mdi mdi-account-convert display-3 m-0"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <p class="text-uppercase font-weight-medium text-truncate mb-2">User Today</p>
-                                        <h2 class="mb-0"><span data-plugin="counterup">895</span> <i class="mdi mdi-arrow-down text-danger font-24"></i></h2>
-                                        <p class="text-muted mt-2 m-0"><span class="font-weight-medium">Last:</span> 1250</p>
-                                    </div>
-
-                                </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card-box tilebox-two border-primary">
+                                <i class="mdi mdi-home-map-marker float-right"></i>
+                                <h6 class="text-primary text-uppercase mb-3 mt-2">Total Properties</h6>
+                                <h2 class="mb-2"><span data-plugin="counterup">1,452</span></h2>
                             </div>
                         </div>
-                        <!-- end col -->
 
-                        <div class="col-lg-6 col-xl-3">
-                            <div class="card widget-box-three">
-                                <div class="card-body">
-                                    <div class="float-right mt-2">
-                                        <i class="mdi mdi-layers display-3 m-0"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <p class="text-uppercase font-weight-medium text-truncate mb-2">User This Month</p>
-                                        <h2 class="mb-0"><span data-plugin="counterup">52410</span><i class="mdi mdi-arrow-up text-success font-24"></i></h2>
-                                        <p class="text-muted mt-2 m-0"><span class="font-weight-medium">Last:</span> 40.33k</p>
-                                    </div>
-                                </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card-box tilebox-two border-pink">
+                                <i class="mdi mdi-comment-multiple-outline float-right"></i>
+                                <h6 class="text-pink text-uppercase mb-3 mt-2">This month Inquiries</h6>
+                                <h2 class="mb-2" data-plugin="counterup">1,587</h2>
                             </div>
                         </div>
-                        <!-- end col -->
 
-                        <div class="col-lg-6 col-xl-3">
-                            <div class="card widget-box-three">
-                                <div class="card-body">
-                                    <div class="float-right mt-2">
-                                        <i class="mdi mdi-av-timer display-3 m-0"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <p class="text-uppercase font-weight-medium text-truncate mb-2">Request Per Minute</p>
-                                        <h2 class="mb-0"><span data-plugin="counterup">652</span> <i class="mdi mdi-arrow-down text-danger font-24"></i></h2>
-                                        <p class="text-muted mt-2 m-0"><span class="font-weight-medium">Last:</span> 956</p>
-                                    </div>
-
-                                </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card-box tilebox-two border-info">
+                                <i class="mdi mdi-account-multiple float-right"></i>
+                                <h6 class="text-info text-uppercase mb-3 mt-2">Registered Users</h6>
+                                <h2 class="mb-2"><span data-plugin="counterup">46,782</span></h2>
                             </div>
                         </div>
-                        <!-- end col -->
+
                     </div>
                     <!-- end row -->
 
                     <div class="row">
-                        <div class="col-xl-4">
+                        <div class="col-lg-8">
                             <div class="card-box">
+                                <h4 class="header-title mb-4">Report</h4>
 
-                                <h4 class="header-title mb-4">Daily Sales</h4>
+                                <div id="ordered-bars-chart" style="height: 320px;"></div>
+                            </div>
+                        </div>
+                        <!-- end col -->
 
-                                <div class="widget-chart text-center">
-                                    <div id="morris-donut-example" class="morris-charts" style="height: 245px;"></div>
-                                    <ul class="list-inline chart-detail-list mb-0">
-                                        <li class="list-inline-item">
-                                            <h6 class="text-danger"><i class="fa fa-circle mr-2"></i>Series A</h6>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <h6 class="text-success"><i class="fa fa-circle mr-2"></i>Series B</h6>
-                                        </li>
-                                    </ul>
+                        <div class="col-lg-4">
+                            <div class="text-center card-box">
+                                <div class="text-left">
+                                    <h4 class="header-title mb-4">Top Rated Agent</h4>
                                 </div>
+                                <div class="member-card">
+                                    <div class="avatar-xl member-thumb mb-2 mx-auto d-block">
+                                        <img src="assets/images/users/avatar-4.jpg" class="rounded-circle img-thumbnail" alt="profile-image">
+                                        <i class="mdi mdi-star-circle member-star text-success" title="Featured Agent"></i>
+                                    </div>
+
+                                    <div class="">
+                                        <h5 class="font-18 mb-2">Mark McKnight</h5>
+                                        <p class="font-14">
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                        </p>
+                                    </div>
+
+                                    <div class="mt-4">
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <h4>84</h4>
+                                                <p class="mb-2">Listed Properties</p>
+                                            </li>
+
+                                            <li class="list-inline-item ml-4">
+                                                <h4>58</h4>
+                                                <p class="mb-2">Sale Properties</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <button type="button" class="btn btn-brown btn-rounded waves-effect mb-1 waves-light">Send Message</button>
+
+                                </div>
+                                <!-- end membar card -->
                             </div>
-                        </div>
-                        <!-- end col -->
-
-                        <div class="col-xl-4">
-                            <div class="card-box">
-
-                                <h4 class="header-title mb-4">Statistics</h4>
-                                <div id="morris-bar-example" class="text-center morris-charts" style="height: 280px;"></div>
-                            </div>
-                        </div>
-                        <!-- end col -->
-
-                        <div class="col-xl-4">
-                            <div class="card-box">
-
-                                <h4 class="header-title mb-4">Total Revenue</h4>
-                                <div id="morris-line-example" class="text-center morris-charts" style="height: 280px;"></div>
-                            </div>
+                            <!-- end card-box -->
                         </div>
                         <!-- end col -->
 
@@ -150,184 +133,158 @@
                             <div class="card-box">
                                 <h4 class="header-title mb-4">Recent Users</h4>
 
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-centered m-0">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>User Name</th>
-                                                <th>Phone</th>
-                                                <th>Location</th>
-                                                <th>Date</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th>
-                                                    <img src="assets/images/users/avatar-1.jpg" alt="user" class="avatar-sm rounded-circle" />
-                                                </th>
-                                                <td>
-                                                    <h5 class="m-0 font-15">Louis Hansen</h5>
-                                                    <p class="m-0 text-muted"><small>Web designer</small></p>
-                                                </td>
-                                                <td>+12 3456 789</td>
-                                                <td>USA</td>
-                                                <td>07/08/2016</td>
-                                            </tr>
+                                <table class="table table-centered mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <a class="user" href="#">
+                                                    <img src="assets/images/users/avatar-2.jpg" alt="" class="rounded-circle img-thumbnail avatar-md">
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <h5 class="mt-0 mb-1 font-15">Clarence M. Ramos </h5>
+                                                <p class="font-13 mb-0">Last login: 16/12/2018 10:45</p>
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="#" class="btn btn-sm btn-bordered-primary waves-effect waves-light btn-primary">Edit</a>
+                                                <a href="#" class="btn btn-sm btn-bordered-danger waves-effect waves-light btn-danger">Remove</a>
+                                            </td>
+                                        </tr>
 
-                                            <tr>
-                                                <th>
-                                                    <img src="assets/images/users/avatar-2.jpg" alt="user" class="avatar-sm rounded-circle" />
-                                                </th>
-                                                <td>
-                                                    <h5 class="m-0 font-15">Craig Hause</h5>
-                                                    <p class="m-0 text-muted"><small>Programmer</small></p>
-                                                </td>
-                                                <td>+89 345 6789</td>
-                                                <td>Canada</td>
-                                                <td>29/07/2016</td>
-                                            </tr>
+                                        <tr>
+                                            <td>
+                                                <a class="user" href="#">
+                                                    <img src="assets/images/users/avatar-3.jpg" alt="" class="rounded-circle img-thumbnail avatar-md">
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <h5 class="mt-0 mb-1 font-15">Wayne J. Sloan</h5>
+                                                <p class="font-13 mb-0">Last login: 16/12/2018 10:45</p>
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="#" class="btn btn-sm btn-bordered-primary waves-effect waves-light btn-primary">Edit</a>
+                                                <a href="#" class="btn btn-sm btn-bordered-danger waves-effect waves-light btn-danger">Remove</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a class="user" href="#">
+                                                    <img src="assets/images/users/avatar-7.jpg" alt="" class="rounded-circle img-thumbnail avatar-md">
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <h5 class="mt-0 mb-1 font-15">Jimmie J. Hertzog</h5>
+                                                <p class="font-13 mb-0">Last login: 16/12/2018 10:45</p>
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="#" class="btn btn-sm btn-bordered-primary waves-effect waves-light btn-primary">Edit</a>
+                                                <a href="#" class="btn btn-sm btn-bordered-danger waves-effect waves-light btn-danger">Remove</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a class="user" href="#">
+                                                    <img src="assets/images/users/avatar-5.jpg" alt="" class="rounded-circle img-thumbnail avatar-md">
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <h5 class="mt-0 mb-1 font-15">Larry D. Guy</h5>
+                                                <p class="font-13 mb-0">Last login: 16/12/2018 10:45</p>
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="#" class="btn btn-sm btn-bordered-primary waves-effect waves-light btn-primary">Edit</a>
+                                                <a href="#" class="btn btn-sm btn-bordered-danger waves-effect waves-light btn-danger">Remove</a>
+                                            </td>
+                                        </tr>
 
-                                            <tr>
-                                                <th>
-                                                    <img src="assets/images/users/avatar-3.jpg" alt="user" class="avatar-sm rounded-circle" />
-                                                </th>
-                                                <td>
-                                                    <h5 class="m-0 font-15">Edward Grimes</h5>
-                                                    <p class="m-0 text-muted"><small>Founder</small></p>
-                                                </td>
-                                                <td>+12 29856 256</td>
-                                                <td>Brazil</td>
-                                                <td>22/07/2016</td>
-                                            </tr>
-
-                                            <tr>
-                                                <th>
-                                                    <img src="assets/images/users/avatar-4.jpg" alt="user" class="avatar-sm rounded-circle" />
-                                                </th>
-                                                <td>
-                                                    <h5 class="m-0 font-15">Bret Weaver</h5>
-                                                    <p class="m-0 text-muted"><small>Web designer</small></p>
-                                                </td>
-                                                <td>+00 567 890</td>
-                                                <td>USA</td>
-                                                <td>20/07/2016</td>
-                                            </tr>
-
-                                            <tr>
-                                                <th>
-                                                    <img src="assets/images/users/avatar-5.jpg" alt="user" class="avatar-sm rounded-circle" />
-                                                </th>
-                                                <td>
-                                                    <h5 class="m-0 font-15">Mark</h5>
-                                                    <p class="m-0 text-muted"><small>Web design</small></p>
-                                                </td>
-                                                <td>+91 123 456</td>
-                                                <td>India</td>
-                                                <td>07/07/2016</td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                                <!-- table-responsive -->
+                                        <tr>
+                                            <td>
+                                                <a class="user" href="#">
+                                                    <img src="assets/images/users/avatar-6.jpg" alt="" class="rounded-circle img-thumbnail avatar-md">
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <h5 class="mt-0 mb-1 font-15">David D. Thomas</h5>
+                                                <p class="font-13 mb-0">Last login: 16/12/2018 10:45</p>
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="#" class="btn btn-sm btn-bordered-primary waves-effect waves-light btn-primary">Edit</a>
+                                                <a href="#" class="btn btn-sm btn-bordered-danger waves-effect waves-light btn-danger">Remove</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <!-- end card -->
                         </div>
                         <!-- end col -->
 
                         <div class="col-xl-6">
                             <div class="card-box">
-                                <h4 class="header-title mb-4">Recent Users</h4>
+                                <h4 class="header-title mb-4">Recent Properties</h4>
 
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-centered m-0">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>User Name</th>
-                                                <th>Phone</th>
-                                                <th>Location</th>
-                                                <th>Date</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th>
-                                                    <span class="avatar-sm-box bg-success">L</span>
-                                                </th>
-                                                <td>
-                                                    <h5 class="m-0 font-15">Louis Hansen</h5>
-                                                    <p class="m-0 text-muted"><small>Web designer</small></p>
-                                                </td>
-                                                <td>+12 3456 789</td>
-                                                <td>USA</td>
-                                                <td>07/08/2016</td>
-                                            </tr>
-
-                                            <tr>
-                                                <th>
-                                                    <span class="avatar-sm-box bg-primary">C</span>
-                                                </th>
-                                                <td>
-                                                    <h5 class="m-0 font-15">Craig Hause</h5>
-                                                    <p class="m-0 text-muted"><small>Programmer</small></p>
-                                                </td>
-                                                <td>+89 345 6789</td>
-                                                <td>Canada</td>
-                                                <td>29/07/2016</td>
-                                            </tr>
-
-                                            <tr>
-                                                <th>
-                                                    <span class="avatar-sm-box bg-brown">E</span>
-                                                </th>
-                                                <td>
-                                                    <h5 class="m-0 font-15">Edward Grimes</h5>
-                                                    <p class="m-0 text-muted"><small>Founder</small></p>
-                                                </td>
-                                                <td>+12 29856 256</td>
-                                                <td>Brazil</td>
-                                                <td>22/07/2016</td>
-                                            </tr>
-
-                                            <tr>
-                                                <th>
-                                                    <span class="avatar-sm-box bg-pink">B</span>
-                                                </th>
-                                                <td>
-                                                    <h5 class="m-0 font-15">Bret Weaver</h5>
-                                                    <p class="m-0 text-muted"><small>Web designer</small></p>
-                                                </td>
-                                                <td>+00 567 890</td>
-                                                <td>USA</td>
-                                                <td>20/07/2016</td>
-                                            </tr>
-
-                                            <tr>
-                                                <th>
-                                                    <span class="avatar-sm-box bg-orange">M</span>
-                                                </th>
-                                                <td>
-                                                    <h5 class="m-0 font-15">Mark</h5>
-                                                    <p class="m-0 text-muted"><small>Web design</small></p>
-                                                </td>
-                                                <td>+91 123 456</td>
-                                                <td>India</td>
-                                                <td>07/07/2016</td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-
+                                <div class="media latest-post-item mt-3">
+                                    <div class="media-left mr-2">
+                                        <a href="#"> <img class="rounded" alt="" src="assets/images/properties/1.jpg" style="width: 100px; height: 66px;"> </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="media-heading mt-0 font-16"><a href="#" class="text-muted">4BHK Alexander Court,New York</a> </h5>
+                                        <p class="font-13 text-muted">
+                                            Dec 03, 2018 | John Deo
+                                        </p>
+                                    </div>
                                 </div>
-                                <!-- table-responsive -->
+
+                                <div class="media latest-post-item mt-3">
+                                    <div class="media-left mr-2">
+                                        <a href="#"> <img class="rounded" alt="" src="assets/images/properties/2.jpg" style="width: 100px; height: 66px;"> </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="media-heading mt-0 font-16"><a href="#" class="text-muted">Exclusive: Get a First Look at the Fall Collection</a> </h5>
+                                        <p class="font-13 text-muted">
+                                            Dec 03, 2018 | John Deo
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="media latest-post-item mt-3">
+                                    <div class="media-left mr-2">
+                                        <a href="#"> <img class="rounded" alt="" src="assets/images/properties/3.jpg" style="width: 100px; height: 66px;"> </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="media-heading mt-0 font-16"><a href="#" class="text-muted">365 Maywood Dr, San Francisco</a> </h5>
+                                        <p class="font-13 text-muted">
+                                            Dec 03, 2018 | John Deo
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="media latest-post-item mt-3">
+                                    <div class="media-left mr-2">
+                                        <a href="#"> <img class="rounded" alt="" src="assets/images/properties/4.jpg" style="width: 100px; height: 66px;"> </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="media-heading mt-0 font-16"><a href="#" class="text-muted">1735 N Fuller Ave #124</a> </h5>
+                                        <p class="font-13 text-muted">
+                                            Dec 03, 2018 | John Deo
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="media latest-post-item mt-3">
+                                    <div class="media-left mr-2">
+                                        <a href="#"> <img class="rounded" alt="" src="assets/images/properties/4.jpg" style="width: 100px; height: 66px;"> </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="media-heading mt-0 font-16"><a href="#" class="text-muted">first generator on Internet a dictionary</a> </h5>
+                                        <p class="font-13 text-muted">
+                                            Dec 03, 2018 | John Deo
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- end card -->
+                            <!-- end card-box -->
                         </div>
                         <!-- end col -->
-
                     </div>
                     <!-- end row -->
 
@@ -336,5 +293,40 @@
 
             </div>
             <!-- end content -->
+
+            
+
+            <!-- Footer Start -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            2018 - 2020 &copy; Zircos theme by <a href="">Coderthemes</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- end Footer -->
+
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- End Page content -->
+        <!-- ============================================================== -->
+
+        <!-- Vendor js -->
+    <script src="{% static 'adminassets/js/vendor.min.js'%}"></script>
+
+    <script src="{% static 'adminassets/libs/flot-charts/jquery.flot.js'%}"></script>
+    <script src="{% static 'adminassets/libs/flot-charts/jquery.flot.time.js'%}"></script>
+    <script src="{% static 'adminassets/libs/flot-charts/jquery.flot.tooltip.min.js'%}"></script>
+    <script src="{% static 'adminassets/libs/flot-charts/jquery.flot.resize.js'%}"></script>
+    <script src="{% static 'adminassets/libs/flot-charts/jquery.flot.pie.js'%}"></script>
+    <script src="{% static 'adminassets/libs/flot-charts/jquery.flot.selection.js'%}"></script>
+    <script src="{% static 'adminassets/libs/flot-charts/jquery.flot.stack.js'%}"></script>
+    <script src="{% static 'adminassets/libs/flot-charts/jquery.flot.orderBars.js'%}"></script>
+    <script src="{% static 'adminassets/libs/flot-charts/jquery.flot.crosshair.js'%}"></script>
+
+    <script src="{% static 'adminassets/js/pages/real-estate-dashboard.init.js'%}"></script>
 
 {% endblock %}

@@ -1,10 +1,7 @@
-
-
 from email.policy import default
 from django.db import models
 from ckeditor.fields import RichTextField
-from django.utils.timezone import now
-
+from base.models import Account
 # Create your models here.
 
 class Country(models.Model):
@@ -46,10 +43,12 @@ class Property(models.Model):
         READY_TO_MOVE       = 'Ready to Move'
         UNDER_CONSTRUCTION  = 'Under Construction'
 
-    title                       = models.CharField(max_length=100)
+    title                       = models.CharField(max_length=255)
+    slug                        = models.SlugField(max_length=255)
     price                       = models.IntegerField()
     body                        = RichTextField(blank=True, null=True)
     description                 = models.TextField(max_length=255, blank=True)
+    locality                    = models.CharField(max_length=255)
     bedroom                     = models.IntegerField()
     bathroom                    = models.IntegerField()
     balcony                     = models.IntegerField()
@@ -63,9 +62,11 @@ class Property(models.Model):
     available_for               = models.CharField(max_length=30, choices=AvailableFor.choices, default=AvailableFor.ALL)
     image                       = models.ImageField(upload_to='photo/property_image')
     parking                     = models.IntegerField()
+    published                   = models.BooleanField(default=True)
     created_at                  = models.DateTimeField(auto_now_add=True)
     updated_at                  = models.DateTimeField(auto_now=True)
 
+    user_id                     = models.ForeignKey(Account, on_delete=models.CASCADE, blank=False, null=False)
     city_id                     = models.ForeignKey(City, on_delete=models.SET_NULL, blank=False, null=True)
     property_type_id            = models.ForeignKey(PropertyType, on_delete=models.SET_NULL, blank=False, null=True)
     property_for_id             = models.ForeignKey(PropertyFor, on_delete=models.CASCADE, blank=False, null=False)
@@ -93,4 +94,3 @@ class Features(models.Model):
     atm                         = models.BooleanField(default=False)
     waste_disposal              = models.BooleanField(default=False)
     piped_gas                   = models.BooleanField(default=False)
-    
