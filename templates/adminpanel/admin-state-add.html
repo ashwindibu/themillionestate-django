@@ -1,0 +1,143 @@
+{% extends 'adminpanel/baseadmin.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block head %}
+    <title>Admin Add Property For | TheMillinoEstate</title>
+    <meta content="admin Property list of TheMillionEstate" name="description" />
+
+
+    <link href="{% static 'adminassets/libs/bootstrap-select/bootstrap-select.min.css'%}" rel="stylesheet" type="text/css" />
+
+     <!-- Plugins css -->
+     <link href="{% static 'adminassets/libs/dropify/dropify.min.css'%}" rel="stylesheet" type="text/css" />
+
+    <!-- App css -->
+    <link href="{% static 'adminassets/css/bootstrap.min.css'%}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
+    <link href="{% static 'adminassets/css/icons.min.css'%}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'adminassets/css/app.min.css'%}" rel="stylesheet" type="text/css" id="app-stylesheet" />
+
+    <script>
+        window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove(); 
+        });
+    }, 2000);
+</script>
+{% endblock %}
+
+{% block content %}
+        <!-- ============================================================== -->
+        <!-- Start Page Content here -->
+        <!-- ============================================================== -->
+
+        <div class="content-page">
+            <div class="content">
+
+                <!-- Start Content-->
+                <div class="container-fluid">
+
+                    <!-- start page title -->
+                    <div class="row mt-4 mb-4">
+
+                        <div class="d-inline-flex">
+                            <div class="col-sm p-4" style="width: 10%;">
+                                <a href="{% url 'admin_state_list' %}"><i class="ion ion-md-arrow-back m-2"></i>Back</a>
+                            </div>
+                        </div>
+
+
+                        <div class="d-inline-flex">
+                            <div class="page-title-box ">
+                                <div style="margin-left: 13%;" class="col-sm">
+                                    
+                                    <h4 class="page-title" >Add State</h4>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+
+                    <div class="row" style="text-align: center; display: flex; justify-content: center;">
+
+                        
+
+
+                    <div class="col-sm-9">
+                            {% for message in messages %}
+                        <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                             {{message}}
+                        </div>
+                        {% endfor %}
+                            <div class="card-box">
+                                <h4 class="header-title" style="margin-bottom: 30px; margin-top:30px;">Add Here</h4>
+                               
+                                <div class="row" style="text-align: center; display:flex; justify-content:center;">
+                                    <div class="col-lg-9">
+
+
+                                        <form class="form-horizontal" method="POST" action="" enctype="multipart/form-data">
+                                            {% csrf_token %}
+
+
+                                            {{form|crispy}}
+
+
+                                            <button class="btn btn-primary mt-5 mb-3" type="submit">Submit</button>
+
+                                        </form>
+
+
+                                    </div>
+
+                                <!-- end row -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end row -->
+
+                </div>
+                <!-- end container-fluid -->
+
+            </div>
+            <!-- end content -->
+
+            
+
+            <!-- Footer Start -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            2018 - 2020 &copy; Zircos theme by <a href="">TheMillionEstate</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- end Footer -->
+
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- End Page content -->
+        <!-- ============================================================== -->
+
+
+
+
+   <!-- Vendor js -->
+    <script src="{% static 'adminassets/js/vendor.min.js'%}"></script>
+            <!-- Plugins js -->
+    <script src="{% static 'adminassets/libs/dropify/dropify.min.js'%}"></script>
+
+    <!-- Init js-->
+    <script src="{% static 'adminassets/js/pages/form-fileuploads.init.js'%}"></script>
+       <!-- App js -->
+    <script src="{% static 'adminassets/js/app.min.js'%}"></script>
+
+{% endblock %}

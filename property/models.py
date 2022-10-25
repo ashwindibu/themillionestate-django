@@ -6,14 +6,20 @@ from base.models import Account
 
 class Country(models.Model):
     country_name = models.CharField(max_length=50, blank=False, unique=True)
+    def __str__(self):
+        return self.country_name
 
 class State(models.Model):
     state_name = models.CharField(max_length=50, blank=False, unique=True)
     country_id = models.ForeignKey(Country, on_delete=models.CASCADE, blank=False, null=False)
+    def __str__(self):
+        return self.state_name
 
 class City(models.Model):
     city_name = models.CharField(max_length=50, blank=False, unique=True)
     state_id = models.ForeignKey(State, on_delete=models.CASCADE, blank=False, null=False)
+    def __str__(self):
+        return self.city_name
 
 class PropertyType(models.Model):
     property_type_name = models.CharField(max_length=100, unique=True)
@@ -67,8 +73,8 @@ class Property(models.Model):
     updated_at                  = models.DateTimeField(auto_now=True)
 
     user_id                     = models.ForeignKey(Account, on_delete=models.CASCADE, blank=False, null=False)
-    city_id                     = models.ForeignKey(City, on_delete=models.SET_NULL, blank=False, null=True)
-    property_type_id            = models.ForeignKey(PropertyType, on_delete=models.SET_NULL, blank=False, null=True)
+    city_id                     = models.ForeignKey(City, on_delete=models.SET_NULL, blank=True, null=True)
+    property_type_id            = models.ForeignKey(PropertyType, on_delete=models.SET_NULL, blank=True, null=True)
     property_for_id             = models.ForeignKey(PropertyFor, on_delete=models.CASCADE, blank=False, null=False)
 
 class Features(models.Model):

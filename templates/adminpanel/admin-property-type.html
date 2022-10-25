@@ -48,9 +48,9 @@
                             <div class="card-box">
                                 <div class="row">
                                     <div class="col-lg-12 col-m-6"> 
-                                        
-                                        <button style="float: right; margin-bottom: 1%;" type="button" class="btn btn-purple waves-effect width-md waves-light">Add New</button>
-
+                                        <a href="{% url 'property_type_add'%}">
+                                            <button style="float: right; margin-bottom: 1%;" type="button" class="btn btn-purple waves-effect width-md waves-light">Add New</button>
+                                        </a>
                                         <div class="demo-box">
                                             
                                             <div class="table-responsive">
@@ -58,21 +58,28 @@
                                                 
                                                     <thead class="bg-primary text-white">
                                                         <tr>
-                                                            <th>#</th>
+                                                            <th>Id</th>
                                                             <th>Name</th>
                                                             
                                                             <th>Delete</th>
                                                     </thead>
                                                     <tbody>
+                                                        
+                                                        {% for data in data %}
                                                         <tr>
-                                                            <th scope="row  ">1</th>
-                                                            <td >Mark</td>
+                                                
+                                                            <th scope="row  ">{{data.id}}</th>
+                                    
+                                                            <td >{{data.property_type_name}}</td>
                                                             
                                                             <td>
-                                                                <button type="button" class="btn btn-danger waves-effect waves-light btn-sm" id="sa-warning">Delete</button>
-                                                                
+                                                                <a href="{% url 'property_type_delete' data.id %}">
+                                                                    <button type="button" class="btn btn-danger waves-effect waves-light btn-sm" >Delete</button>
+                                                                </a>
                                                             </td>
                                                         </tr>
+                                                        {% endfor %}
+                                                        
 
                                                     </tbody>
                                                 </table>
@@ -94,19 +101,6 @@
             </div>
             <!-- end content -->
 
-            
-
-            <!-- Footer Start -->
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            2018 - 2020 &copy; Zircos theme by <a href="">Coderthemes</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-            <!-- end Footer -->
 
         </div>
 

@@ -1,0 +1,128 @@
+{% extends 'adminpanel/baseadmin.html' %}
+{% load static %}
+
+{% block head %}
+    <title>Admin User Type | TheMillinoEstate</title>
+    <meta content="admin Property list of TheMillionEstate" name="description" />
+
+    <!-- App css -->
+    <link href="{% static 'adminassets/css/bootstrap.min.css'%}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
+    <link href="{% static 'adminassets/css/icons.min.css'%}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'adminassets/css/app.min.css'%}" rel="stylesheet" type="text/css" id="app-stylesheet" />
+
+    <link href="{% static 'adminassets/libs/sweetalert2/sweetalert2.min.css'%}" rel="stylesheet" type="text/css" />
+
+{% endblock %}
+
+{% block content %}
+
+ <!-- ============================================================== -->
+        <!-- Start Page Content here -->
+        <!-- ============================================================== -->
+
+        <div class="content-page">
+            <div class="content">
+
+                <!-- Start Content-->
+                <div class="container-fluid">
+
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Zircos</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
+                                        <li class="breadcrumb-item active">Colored Tables</li>
+                                    </ol>
+                                </div>
+                                <h4 class="page-title">User Type</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+
+                    <div class="row" style="text-align: center; display: flex; justify-content: center;">
+                        <div class="col-sm-9" >
+                            <div class="card-box">
+                                
+                                <div class="row">
+                                    <div class="col-lg-12 col-m-6"> 
+                                        <a href="{% url 'user_type_add'%}">
+                                            <button style="float: right; margin-bottom: 1%;" type="button" class="btn btn-purple waves-effect width-md waves-light">Add New</button>
+                                        </a>
+                                        
+                                        <div class="demo-box">
+                                            
+                                            <div class="table-responsive">
+                                                <table class="table m-0">
+                                                
+                                                    <thead class="bg-primary text-white">
+                                                        <tr>
+                                                            <th>Id</th>
+                                                            <th>Name</th>
+                                                            
+                                                            <th>Delete</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        
+                                                        {% for data in data %}
+                                                        <tr>
+                                                
+                                                            <th scope="row  ">{{data.id}}</th>
+                                    
+                                                            <td >{{data.usertype_name}}</td>
+                                                            
+                                                            <td>
+                                                                <a href="{% url 'user_type_delete' data.id %}">
+                                                                    <button type="button" class="btn btn-danger waves-effect waves-light btn-sm" >Delete</button>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                        
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                            </div>
+                            <!-- end card-box -->
+                        </div>
+                        <!-- end col -->
+                    </div>
+                    <!-- end row -->
+
+                </div>
+                <!-- end container-fluid -->
+
+            </div>
+            <!-- end content -->
+
+
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- End Page content -->
+        <!-- ============================================================== -->
+
+
+           <!-- Vendor js -->
+    <script src="{% static 'adminassets/js/vendor.min.js'%}"></script>
+
+    <!-- App js -->
+    <script src="{% static 'adminassets/js/app.min.js'%}"></script>
+
+
+    <!-- Vendor js -->
+    <script src="{% static 'adminassets/js/vendor.min.js'%}"></script>
+
+    <script src="{% static 'adminassets/libs/sweetalert2/sweetalert2.min.js'%}"></script>
+
+    <script src="{% static 'adminassets/js/pages/sweetalerts.init.js'%}"></script>
+
+{% endblock %}
