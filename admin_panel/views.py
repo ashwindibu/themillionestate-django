@@ -1,11 +1,14 @@
 from itertools import count
 from multiprocessing import context
+from turtle import title
 from urllib.request import HTTPPasswordMgrWithDefaultRealm
+from venv import create
 from django.contrib import messages
 from django.shortcuts import redirect, render
+
 from .forms import PropertyTypeForm, PropertyForForm, UserTypeForm, CountryForm, StateForm, CityForm
-from property.models import PropertyType, PropertyFor, Property,Country, State, City
-from base.models import UserType
+from property.models import PropertyType, PropertyFor, Property,Country, State, City, Image
+from base.models import UserType, Account
 
 # Create your views here.
 
@@ -123,20 +126,22 @@ def user_type_delete(request,pk):
 
 #Property <---->
 def admin_add_property(request):
-    property_for = PropertyFor.objects.all()
-    property_type = PropertyType.objects.all()
-    property_data = Property()
+    property_for    = PropertyFor.objects.all()
+    property_type   = PropertyType.objects.all()
+    property_data   = Property()
+    city            = City.objects.all()
     context = {
         "property_for":property_for,
         "property_type":property_type,
         "furnishing_status":property_data.FurnishingStatus,
         "available_for":property_data.AvailableFor,
         "property_status":property_data.PropertyStatus,
+        "city":city
     }
     if request.method == "POST":
-        title              = request.POST.get('title')
+        titledemo          = request.POST.get('title')
         slug               = request.POST.get('slug')
-        price              = request.POST.get('price')
+        price              = request.POST.get('property_price')
         body               = request.POST.get('body')
         description        = request.POST.get('description')
         locality           = request.POST.get('locality')
@@ -152,8 +157,25 @@ def admin_add_property(request):
         property_status    = request.POST.get('property_status')
         furnishing_status  = request.POST.get('furnishing_status')
         available_for      = request.POST.get('available_for')
-        images            = request.POST.getlist('image')
+        images             = request.FILES.getlist('image')
         parking            = request.POST.get('parking')
+        publish             = request.POST.get('publish')
+
+        property_for_data  = request.POST.get('property-for')
+        property_type_data = request.POST.get('property-type')
+        city               = request.POST.get('city')
+        account            = Account.objects.get(is_superadmin=1)
+        
+        print(publish)
+        print("Hello ", property_type_data)
+        if publish:
+            publish_on = True
+        else:
+            publish_on = False
+        propertytype       = PropertyType.objects.get(id=property_type_data)
+        bhk     = str(bedroom) + " BHK "
+        title   = bhk + propertytype.property_type_name+" in "+ str(locality)
+        print(title)
 
     return render(request, 'adminpanel/admin-add-property.html', context)
 

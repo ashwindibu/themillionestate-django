@@ -52,6 +52,7 @@ class Property(models.Model):
     title                       = models.CharField(max_length=255)
     slug                        = models.SlugField(max_length=255)
     price                       = models.IntegerField()
+    indian_currency             = models.CharField(max_length=30, default=0)
     body                        = RichTextField(blank=True, null=True)
     description                 = models.TextField(max_length=255, blank=True)
     locality                    = models.CharField(max_length=255)
@@ -66,7 +67,6 @@ class Property(models.Model):
     property_status             = models.CharField(max_length=30, choices=PropertyStatus.choices, default=PropertyStatus.READY_TO_MOVE)
     furnishing_status           = models.CharField(max_length=30, choices=FurnishingStatus.choices, default=FurnishingStatus.UNFURNISHED)
     available_for               = models.CharField(max_length=30, choices=AvailableFor.choices, default=AvailableFor.ALL)
-    image                       = models.ImageField(upload_to='photo/property_image')
     parking                     = models.IntegerField()
     published                   = models.BooleanField(default=True)
     created_at                  = models.DateTimeField(auto_now_add=True)
@@ -76,6 +76,13 @@ class Property(models.Model):
     city_id                     = models.ForeignKey(City, on_delete=models.SET_NULL, blank=True, null=True)
     property_type_id            = models.ForeignKey(PropertyType, on_delete=models.SET_NULL, blank=True, null=True)
     property_for_id             = models.ForeignKey(PropertyFor, on_delete=models.CASCADE, blank=False, null=False)
+    def __str__(self):
+        return self.title
+
+class Image(models.Model):
+    property                    = models.ForeignKey(Property, on_delete=models.CASCADE, blank=True, null=True)
+    image                       = models.ImageField(upload_to='photo/property_image')
+
 
 class Features(models.Model):
     property_id                 = models.ForeignKey(Property, on_delete=models.CASCADE, blank=False, null=False)

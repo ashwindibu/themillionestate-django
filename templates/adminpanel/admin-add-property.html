@@ -11,12 +11,15 @@
 <link href="{% static 'adminassets/libs/dropify/dropify.min.css'%}" rel="stylesheet" type="text/css" />
 
 <!-- App css -->
-<link href="{% static 'adminassets/css/bootstrap.min.css'%}" rel="stylesheet" type="text/css"
-    id="bootstrap-stylesheet" />
+<link href="{% static 'adminassets/css/bootstrap.min.css'%}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
 <link href="{% static 'adminassets/css/icons.min.css'%}" rel="stylesheet" type="text/css" />
 <link href="{% static 'adminassets/css/app.min.css'%}" rel="stylesheet" type="text/css" id="app-stylesheet" />
+<link href="{% static 'adminassets/libs/switchery/switchery.min.css'%}" rel="stylesheet" type="text/css" />
 
 <script src="{% static 'ckeditor/ckeditor.js' %}" type="text/javascript"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 {% endblock %}
 
 {% block content %}
@@ -63,11 +66,10 @@
                                             <label class="mb-2">Property For*</label>
                                             <br />
                                             {% if property_for %}
-                                            {% for property_for in property_for %}
+                                            {% for property_fo in property_for %}
                                             <div class="radio radio-info form-check-inline">
-                                                <input type="radio" id="inlineRadio1" value="{{property_for.id}}"
-                                                    name="radioInline" checked>
-                                                <label for="inlineRadio1">For {{property_for.property_for_name}}</label>
+                                                <input type="radio" id="property-for" value="{{property_fo.id}}" name="property-for" checked>
+                                                <label for="inlineRadio1">For {{property_fo.property_for_name}}</label>
                                             </div>
                                             {% endfor %}
                                             {% endif %}
@@ -78,10 +80,10 @@
 
                                         <div class="form-group">
                                             <label for="sel1">Your property type*</label>
-                                            <select class="form-control" id="sel1">
+                                            <select class="form-control" id="property-type" name="property-type" >
                                                 {% if property_type %}
-                                                {% for property_type in property_type %}
-                                                <option value="{{property_type.id}}">{{property_type}}</option>
+                                                {% for property_typ in property_type %}
+                                                <option value="{{property_typ.id}}">{{property_typ}}</option>
                                                 {% endfor %}
                                                 {% endif %}
                                             </select>
@@ -89,27 +91,35 @@
 
 
                                         <div class="form-group">
-                                            <label for="property-location">Location*</label>
-                                            <input type="text" class="form-control" id="property-location"
-                                                placeholder="Enter location" required>
+                                            <label for="City">City*</label>
+                                            <select class="form-control" id="city" name="city" >
+                                                {% if city %}
+                                                {% for citys in city %}
+                                                <option value="{{citys.id}}">{{citys}}</option>
+                                                {% endfor %}
+                                                {% endif %}
+                                            </select>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="locality">Locality*</label>
+                                            <input type="text" class="form-control" id="locality" name="locality" placeholder="Enter location" required>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-4 mb-2">
                                                     <label for="bedrooms">Bedrooms*</label>
-                                                    <input type="number" min="0" max="50" class="form-control"
-                                                        id="bedrooms" required>
+                                                    <input type="number" min="0" max="50" class="form-control" id="bedroom" name="bedroom" required>
                                                 </div>
                                                 <div class="col-sm-4 mb-2">
-                                                    <label for="Square-ft">Bathroom</label>
-                                                    <input type="number" min="0" max="50" class="form-control"
-                                                        id="bathrooms" required>
+                                                    <label for="Square-ft">Bathroom*</label>
+                                                    <input type="number" min="0" max="50" class="form-control" id="bathroom" name="bathroom" required>
                                                 </div>
                                                 <div class="col-sm-4 mb-2">
                                                     <label for="car-parking">Balcony</label>
-                                                    <input type="number" min="0" max="50" maxlength="1"
-                                                        class="form-control" id="car-parking" required>
+                                                    <input type="number" min="0" max="50" maxlength="1" class="form-control" id="balcony" name="balcony">
                                                 </div>
                                             </div>
                                         </div>
@@ -118,15 +128,15 @@
                                             <div class="row">
                                                 <div class="col-sm-4 mb-2">
                                                     <label for="bedrooms">Carpet area sq.ft*</label>
-                                                    <input type="number" class="form-control" id="carpet-area " required>
+                                                    <input type="number" class="form-control" id="carpet-area" name="carpet_area" required>
                                                 </div>
                                                 <div class="col-sm-4 mb-2">
                                                     <label for="Square-ft">Builtup area sq.ft</label>
-                                                    <input type="number" class="form-control" id="builtup-area">
+                                                    <input type="number" class="form-control" id="builtup-area" name="builtup_area">
                                                 </div>
                                                 <div class="col-sm-4 mb-2">
                                                     <label for="car-parking">Superbuiltup area sq.ft</label>
-                                                    <input type="number" class="form-control" id="superbuiltup-area">
+                                                    <input type="number" class="form-control" id="superbuiltup-area" name="superbuiltup_area">
                                                 </div>
                                             </div>
                                         </div>
@@ -137,35 +147,36 @@
                                             <div class="row">
                                                  <div class="col-sm-4 mb-2">
                                                     <label for="floors">Floors</label>
-                                                    <input type="number" class="form-control" id="floor">
+                                                    <input type="number" min="0" max="500" class="form-control" id="floor" name="floor">
                                                 </div>
                                                 <div class="col-sm-4 mb-2">
                                                     <label for="property age">Property Age</label>
-                                                    <input type="number" class="form-control" id="property-age">
+                                                    <input type="number" min="0"  class="form-control" id="property-age" name="property_age" placeholder="year">
                                                 </div>
                                                 <div class="col-sm-4 mb-2">
                                                     <label for="parking">Parking</label>
-                                                    <input type="number" class="form-control" id="parking">
+                                                    <input type="number" min="0" max="100" class="form-control" id="parking" name="parking">
                                                 </div>
                                             </div>
                                         </div>
 
 
-
-                                        <div class="form-group" >
-                                            <label for="propertyname">Property Name</label>
-                                            <input type="text" class="form-control" id="name"
-                                                placeholder="Enter title">
-                                        </div>
-
                                         <div class="form-group">
                                             <label for="property-desc">Description</label>
-                                            <textarea class="form-control" id="description" rows="5"></textarea>
+                                            <textarea class="form-control" id="description" name="description" rows="5"></textarea>
                                         </div>
 
+                                        
+
                                         <div class="form-group">
+
+
                                             <label for="property-price">Price*:</label>
-                                            <input type="number"  class="form-control" id="price" placeholder="Enter Price here" required >
+                                            <input type="number" min="0"  class="form-control" id="price" name="property_price"
+                                             placeholder="Enter Price here" data-action="convert-to-words" data-target="price-someId" required >
+
+                                             <div class="" data-attrib="price-someId"></div>
+                                                <div id="amtwords" class="words"></div>
                                         </div>
 
 
@@ -177,7 +188,7 @@
                                             <div class="row">
                                                 <div class="col-sm-4 mb-2">
                                                     <label for="furnishing-type">Furnishing Type:</label>
-                                                    <select class="form-control" name="furnishing_type">
+                                                    <select class="form-control" name="furnishing_status" id="furnishing-status">
                                                         {% if furnishing_status %}
                                                         {% for furnishing in furnishing_status %}
                                                         <option value="{{furnishing}}">{{furnishing}}</option>
@@ -187,20 +198,20 @@
                                                 </div>
                                                 <div class="col-sm-4 mb-2">
                                                     <label for="Square-ft">Available For:</label>
-                                                    <select class="form-control" name="available_for">
+                                                    <select class="form-control" name="available_for" id="available-for">
                                                         {% if available_for %}
-                                                        {% for available_for in available_for %}
-                                                        <option value="{{available_for}}">{{available_for}}</option>
+                                                        {% for available_fo in available_for %}
+                                                        <option value="{{available_fo}}">{{available_fo}}</option>
                                                         {% endfor %}
                                                         {% endif %}
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-4 mb-2">
                                                     <label for="car-parking">Property Status* :</label>
-                                                    <select class="form-control" name="property_status">
+                                                    <select class="form-control" name="property_status" id="property-status">
                                                         {% if property_status %}
-                                                        {% for property_status in property_status %}
-                                                        <option value="{{property_status}}">{{property_status}}</option>
+                                                        {% for property_statu in property_status %}
+                                                        <option value="{{property_statu}}">{{property_statu}}</option>
                                                         {% endfor %}
                                                         {% endif %}
                                                     </select>
@@ -212,6 +223,7 @@
 
                                 </div>
                                 <!-- end col -->
+
 
                                 <div class="col-lg-6">
                                     <div class="p-4">
@@ -330,6 +342,17 @@
                                             <input type="file" multiple class="dropify form-control-file" name="image" data-height="210" />
 
                                         </div>
+
+                                        <div>
+                                            <label style="size: 70px;" class="">Publish </label>
+                                            <div>
+                                                <input type="checkbox" id="switch1" value="publish" name="publish"  data-switch="none" />
+                                                
+                                                <label for="switch1" data-on-label="On" data-off-label="Off"></label>
+                                            </div>
+                                        </div>
+                                        
+                                        
                                     </div>
                                     <!-- end class p-20 -->
                                 </div>
@@ -385,10 +408,56 @@
 <!-- Vendor js -->
 <script src="{% static 'adminassets/js/vendor.min.js'%}"></script>
 
+
+<script src="{% static 'adminassets/libs/switchery/switchery.min.js'%}"></script>
+<!-- Init js-->
+<script src="assets/js/pages/form-advanced.init.js"></script>
+
+
+
 <!-- Plugins js -->
 <script src="{% static 'adminassets/libs/dropify/dropify.min.js'%}"></script>
 
 <script src="{% static 'adminassets/js/pages/property-add.init.js'%}"></script>
 <!-- App js -->
 <script src="{% static 'adminassets/js/app.min.js'%}"></script>
+
+<script>
+
+    // ==========================================================================
+// Function Declaration :: Convert Numbers to Words :: Indian Format
+// ==========================================================================
+
+function convertNumberToWords(num) {
+var ones = ["", "One ", "Two ", "Three ", "Four ", "Five ", "Six ", "Seven ", "Eight ", "Nine ", "Ten ", "Eleven ", "Twelve ", "Thirteen ", "Fourteen ", "Fifteen ", "Sixteen ", "Seventeen ", "Eighteen ", "Nineteen "];
+var tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+if ((num = num.toString()).length > 9) return "Overflow: Maximum 9 digits supported";
+n = ("000000000" + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+if (!n) return;
+var str = "";
+str += n[1] != 0 ? (ones[Number(n[1])] || tens[n[1][0]] + " " + ones[n[1][1]]) + "Crore " : "";
+str += n[2] != 0 ? (ones[Number(n[2])] || tens[n[2][0]] + " " + ones[n[2][1]]) + "Lakh " : "";
+str += n[3] != 0 ? (ones[Number(n[3])] || tens[n[3][0]] + " " + ones[n[3][1]]) + "Thousand " : "";
+str += n[4] != 0 ? (ones[Number(n[4])] || tens[n[4][0]] + " " + ones[n[4][1]]) + "Hundred " : "";
+str += n[5] != 0 ? (str != "" ? "and " : "") + (ones[Number(n[5])] || tens[n[5][0]] + " " + ones[n[5][1]]) : "";
+return str;
+}
+
+// ==========================================================================
+// JS Implementation | Usage
+// ==========================================================================
+
+
+$('body').on('keyup change blur input', '[data-action=convert-to-words]', function() {
+var $this = $(this);
+var target = $this.data('target');
+var amt = $this.val();
+var words = convertNumberToWords(amt);
+$('[data-attrib="'+target+'"]').text(words);
+});
+
+
+
+</script>
+
 {% endblock %}
