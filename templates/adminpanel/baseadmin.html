@@ -348,11 +348,11 @@
                                         <span class="menu-arrow"></span>
                                     </a>
                                     <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="admin-property-add">Add Property</a></li>
-                                        <li><a href="adminproperty-list">Property List</a></li>
-                                        <li><a href="admin-property-typ">Property Type</a></li>
-                                        <li><a href="admin-property-for">Property For</a></li>
-                                        <li><a href="admin-location">Locations</a></li>
+                                        <li><a href="{% url 'admin_add_property'%}">Add Property</a></li>
+                                        <li><a href="{% url 'admin-property-lis' %}">Property List</a></li>
+                                        <li><a href="{% url 'admin_property_type'%}">Property Type</a></li>
+                                        <li><a href="{% url 'admin_property_for'%}">Property For</a></li>
+                                        <li><a href="{% url 'admin_location'%}">Locations</a></li>
                                     </ul>
                                     </li>
 

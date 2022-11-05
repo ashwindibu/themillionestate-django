@@ -6,7 +6,9 @@ from . import views
 urlpatterns = [ 
     path('', views.home, name='admindashboard'),
     path('adminproperty-list', views.admin_property_list, name='admin-property-lis'),
+    path('admin-property-delete/<str:pk>/', views.admin_property_delete, name='admin_property_delete'),
     path('admin-property-add', views.admin_add_property, name='admin_add_property'),
+    path('admin-edit-property/<str:pk>/', views.admin_edit_property, name="admin_edit_property"),
     path('admin-property-for', views.admin_property_for, name='admin_property_for'),
     path('admin-property-typ', views.admin_property_type, name='admin_property_type'),
     path('propertytype-add', views.admin_property_type_add, name='property_type_add'),

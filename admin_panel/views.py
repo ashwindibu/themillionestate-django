@@ -1,12 +1,13 @@
 from itertools import count
+from math import floor
 from multiprocessing import context
-from turtle import title
+from turtle import Turtle, title
 from urllib.request import HTTPPasswordMgrWithDefaultRealm
 from venv import create
 from django.contrib import messages
 from django.shortcuts import redirect, render
-
-from .forms import PropertyTypeForm, PropertyForForm, UserTypeForm, CountryForm, StateForm, CityForm
+import os
+from .forms import PropertyTypeForm, PropertyForForm, UserTypeForm, CountryForm, StateForm, CityForm, FeaturesForm
 from property.models import PropertyType, PropertyFor, Property,Country, State, City, Image
 from base.models import UserType, Account
 
@@ -16,8 +17,8 @@ def home(request):
     return render(request, 'adminpanel/adminhome.html')
 
 def admin_property_list(request):
-    return render(request, 'adminpanel/admin-property-list.html')
-
+    property_details    = Property.objects.all()
+    return render(request, 'adminpanel/admin-property-list.html',{'datas':property_details})
 
 #PropertyType <---->
 def admin_property_type(request):
@@ -124,19 +125,21 @@ def user_type_delete(request,pk):
 
 
 
-#Property <---->
+#Property ADD <---->
 def admin_add_property(request):
     property_for    = PropertyFor.objects.all()
     property_type   = PropertyType.objects.all()
     property_data   = Property()
     city            = City.objects.all()
+    features_form           = FeaturesForm(request.POST or None)
     context = {
         "property_for":property_for,
         "property_type":property_type,
         "furnishing_status":property_data.FurnishingStatus,
         "available_for":property_data.AvailableFor,
         "property_status":property_data.PropertyStatus,
-        "city":city
+        "city":city,
+        "features_form":features_form,
     }
     if request.method == "POST":
         titledemo          = request.POST.get('title')
@@ -152,32 +155,287 @@ def admin_add_property(request):
         carpet_area        = request.POST.get('carpet_area')
         builtup_area       = request.POST.get('builtup_area')
         superbuiltup_area  = request.POST.get('superbuiltup_area')
-        floors             = request.POST.get('floors')
+        floors             = request.POST.get('floor')
         property_age       = request.POST.get('property_age')
         property_status    = request.POST.get('property_status')
         furnishing_status  = request.POST.get('furnishing_status')
         available_for      = request.POST.get('available_for')
-        images             = request.FILES.getlist('image')
+        featured_image     = request.FILES.get('featured_image')
         parking            = request.POST.get('parking')
         publish             = request.POST.get('publish')
-
         property_for_data  = request.POST.get('property-for')
         property_type_data = request.POST.get('property-type')
         city               = request.POST.get('city')
         account            = Account.objects.get(is_superadmin=1)
+        if builtup_area=='':
+            builtup_area=None
+        if superbuiltup_area=='':
+            superbuiltup_area=None
+        if property_age=='':
+            property_age=None
+        if parking=='':
+            parking=None
+        if balcony=='':
+            balcony=None
         
+        # Publishing On or Off
+        print(publish)
+        print(floors)
+        print("Hello ", property_type_data)
+        if publish:
+            publish_on = True
+        else:
+            publish_on = False
+
+        # Auto Generated Title
+        propertytype       = PropertyType.objects.get(id=property_type_data)
+        bhk     = str(bedroom) + " BHK "
+        title   = bhk + propertytype.property_type_name+" in "+ str(locality)
+        print(title)
+
+        # Indian Currency Format Words
+        def format_indian(t):
+            dic = {
+                4:'Thousand',
+                5:'Lakh',
+                6:'Lakh',
+                7:'Crore',
+                8:'Crore',
+                9:'Billion'
+            }
+            y = 10
+            len_of_number = len(str(t))
+            save = t
+            z=y
+            while(t!=0):
+                t=int(t/y)
+                z*=10
+
+            zeros = len(str(z)) - 3
+            if zeros>3:
+                if zeros%2!=0:
+                    string = str(save/(z/100))[0:4]+" "+dic[zeros]
+                else:   
+                    string = str(save/(z/1000))[0:4]+" "+dic[zeros]
+                return string
+            return str(save)
+        if price:
+            indian_currency = format_indian(int(price))
+            print(indian_currency)
+
+        
+        property_details = Property.objects.create(
+            property_for_id_id = property_for_data,
+            property_type_id_id = property_type_data,
+            city_id_id = city,
+            locality = locality,
+            bedroom = bedroom,
+            bathroom = bathroom,
+            balcony = balcony,
+            carpet_area = carpet_area,
+            builtup_area = builtup_area,
+            superbuiltup_area = superbuiltup_area,
+            floors = floors,
+            property_age = property_age,
+            parking = parking,
+            title = title,
+            description = description, 
+            price = price,
+            indian_currency = indian_currency,
+            furnishing_status = furnishing_status,
+            available_for = available_for,
+            property_status = property_status,
+            featured_image = featured_image,
+            published = publish_on,
+            user_id = account,
+            )
+        print(features_form)
+        if features_form.is_valid():
+            print(features_form.cleaned_data)
+            features_form.property_id_id = property_details
+            features_form.save()
+            print("Entered Feature Form")
+
+        images             = request.FILES.getlist('image')
+        print(property_details )
+        if images:
+            for image in images:
+                img = Image()
+                img.property = property_details
+                img.image = image
+                img.save()
+
+        print(property_details.id)
+        messages.success(request,'Property Added Succesfully')
+        return redirect(admin_property_list)
+    
+    return render(request, 'adminpanel/admin-add-property.html', context)
+
+
+
+#Property Edit
+def admin_edit_property(request, pk):
+    pk = int(pk)
+    property        = Property.objects.get(id=pk)
+    property_image  = Image.objects.all().filter(property=pk)
+    property_for    = PropertyFor.objects.all()
+    property_type   = PropertyType.objects.all()
+    property_data   = Property()
+    city            = City.objects.all()
+    featrued_image_check = False
+    if property.featured_image:
+        featrued_image_check = True
+
+    context = {
+        "property":property,
+        "property_for":property_for,
+        "property_type":property_type,
+        "furnishing_status":property_data.FurnishingStatus,
+        "available_for":property_data.AvailableFor,
+        "property_status":property_data.PropertyStatus,
+        "city":city,
+        "property_image":property_image,
+        "featrued_image_check":featrued_image_check,
+    }
+    if request.method == "POST" and 'btnform1' in request.POST and request.FILES:
+        titledemo          = request.POST.get('title')
+        slug               = request.POST.get('slug')
+        price              = request.POST.get('property_price')
+        body               = request.POST.get('body')
+        description        = request.POST.get('description')
+        locality           = request.POST.get('locality')
+        bedroom            = request.POST.get('bedroom')
+        bathroom           = request.POST.get('bathroom')
+        balcony            = request.POST.get('balcony')
+        locality           = request.POST.get('locality')
+        carpet_area        = request.POST.get('carpet_area')
+        builtup_area       = request.POST.get('builtup_area')
+        superbuiltup_area  = request.POST.get('superbuiltup_area')
+        floors             = request.POST.get('floor')
+        property_age       = request.POST.get('property_age')
+        property_status    = request.POST.get('property_status')
+        furnishing_status  = request.POST.get('furnishing_status')
+        available_for      = request.POST.get('available_for')
+        featured_image     = request.FILES['featured_image']
+        parking            = request.POST.get('parking')
+        publish            = request.POST.get('publish')
+        property_for_data  = request.POST.get('property-for')
+        property_type_data = request.POST.get('property-type')
+        city               = request.POST.get('city')
+        account            = Account.objects.get(is_superadmin=1)
+        print(property.featured_image.path)
+        if os.path.exists(property.featured_image.path):
+            os.remove(property.featured_image.path)
+        if builtup_area=='':
+            builtup_area=None
+        if superbuiltup_area=='':
+            superbuiltup_area=None
+        if property_age=='':
+            property_age=None
+        if parking=='':
+            parking=None
+        if balcony=='':
+            balcony=None
+        
+        # Publishing On or Off
         print(publish)
         print("Hello ", property_type_data)
         if publish:
             publish_on = True
         else:
             publish_on = False
+
+        # Auto Generated Title
         propertytype       = PropertyType.objects.get(id=property_type_data)
         bhk     = str(bedroom) + " BHK "
         title   = bhk + propertytype.property_type_name+" in "+ str(locality)
         print(title)
 
-    return render(request, 'adminpanel/admin-add-property.html', context)
+        # Indian Currency Format Words
+        def format_indian(t):
+            dic = {
+                4:'Thousand',
+                5:'Lakh',
+                6:'Lakh',
+                7:'Crore',
+                8:'Crore',
+                9:'Billion'
+            }
+            y = 10
+            len_of_number = len(str(t))
+            save = t
+            z=y
+            while(t!=0):
+                t=int(t/y)
+                z*=10
+
+            zeros = len(str(z)) - 3
+            if zeros>3:
+                if zeros%2!=0:
+                    string = str(save/(z/100))[0:4]+" "+dic[zeros]
+                else:   
+                    string = str(save/(z/1000))[0:4]+" "+dic[zeros]
+                return string
+            return str(save)
+        if price:
+            indian_currency = format_indian(int(price))
+            print(indian_currency)
+
+        
+        Property.objects.filter(id=pk).update(
+            property_for_id_id = property_for_data,
+            property_type_id_id = property_type_data,
+            city_id_id = city,
+            locality = locality,
+            bedroom = bedroom,
+            bathroom = bathroom,
+            balcony = balcony,
+            carpet_area = carpet_area,
+            builtup_area = builtup_area,
+            superbuiltup_area = superbuiltup_area,
+            floors = floors,
+            property_age = property_age,
+            parking = parking,
+            title = title,
+            description = description, 
+            price = price,
+            indian_currency = indian_currency,
+            furnishing_status = furnishing_status,
+            available_for = available_for,
+            property_status = property_status,
+            featured_image = featured_image,
+            published = publish_on,
+            user_id = account,
+            )
+
+            
+
+        images             = request.FILES.getlist('image')
+        print(property.id)
+        if images:
+            for image in images:
+                img = Image()
+                img.property = property
+                img.image = image
+                img.save()
+
+        messages.success(request,'Property Updated Succesfully')
+        return redirect(admin_property_list)
+
+    if request.method == "POST" and 'btnform2':
+        image_id = request.POST.getlist('id[]')
+        print("Entered Ajax", image_id)
+        for id in image_id:
+            print("Entered Loop", id)
+            image_data = Image.objects.get(id=id)
+            image_data.delete()
+    return render(request, 'adminpanel/admin-edit-property.html', context)
+
+def admin_property_delete(request, pk):
+    Property.objects.filter(id=pk).delete()
+    messages.success(request,'Property Deleted Succesfully')
+    return redirect(admin_property_list)
+
 
 def admin_location(request):
     return render(request, 'adminpanel/admin-location.html')

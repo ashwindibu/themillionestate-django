@@ -12,6 +12,15 @@
     <link href="{% static 'adminassets/css/bootstrap.min.css'%}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
     <link href="{% static 'adminassets/css/icons.min.css'%}" rel="stylesheet" type="text/css" />
     <link href="{% static 'adminassets/css/app.min.css'%}" rel="stylesheet" type="text/css" id="app-stylesheet" />
+
+    <script>
+        window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove(); 
+        });
+    }, 2000);
+    </script>
+
 {% endblock %}
 
 {% block content %}
@@ -25,16 +34,23 @@
                 <!-- Start Content-->
                 <div class="container-fluid">
 
+                    {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                         {{message}}
+                    </div>
+                    {% endfor %}
+
+
                     <!-- start page title -->
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box">
                                 <div class="page-title-right">
-                                    <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Zircos</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Real Estate </a></li>
-                                        <li class="breadcrumb-item active">Property List</li>
-                                    </ol>
+                                    <a href="admin-property-add"><button type="button" class="btn btn-purple waves-effect waves-light">Add Property</button></a>
+                                    
                                 </div>
                                 <h4 class="page-title">Property List</h4>
                             </div>
@@ -44,11 +60,19 @@
 
                     <div class="row">
                         <div class="col-lg-8">
+
+
+                            {% if datas %}
+                            {% for data in datas %}
                             <div class="property-card property-horizontal card">
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <div class="property-image" style="background: url('assets/images/properties/1.jpg') center center / cover no-repeat;">
-                                            <span class="property-label badge badge-danger">For Sale</span>
+                                        <div class="property-image" style="background: url({{data.featured_image.url}}) center center / cover no-repeat;">
+                                            {% if data.property_for_id.property_for_name == 'Sale' %}
+                                            <span class="property-label badge badge-danger">For {{data.property_for_id.property_for_name}}</span>
+                                            {% elif data.property_for_id.property_for_name == 'Rent' %}
+                                            <span class="property-label badge badge-warning">For {{data.property_for_id.property_for_name}}</span>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <!-- /col 4 -->
@@ -56,22 +80,26 @@
                                         <div class="property-content">
                                             <div class="listingInfo px-3 p-sm-0">
                                                 <div class="">
-                                                    <h5 class="font-18 text-success">$390,000 - $430,000</h5>
+                                                    <h5 class="font-18 text-success">₹{{data.price}} - {{data.indian_currency}}</h5>
                                                 </div>
                                                 <div class="">
-                                                    <h5><a href="#" class="text-dark">4BHK Alexander Court,New York</a></h5>
-                                                    <p class="text-muted"><i class="mdi mdi-map-marker-radius mr-1"></i>245 E 20th St, New York, NY 201609</p>
-
-                                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit Aliquam gravida magna et fringilla convallis. Pellentesque habitant morb</p>
+                                                    <h5><a href="{% url 'admin_edit_property' data.id %}" class="text-dark">{{data.title}}</a></h5>
+                                                    
+                                                    <p class="text-muted"><i class="mdi mdi-map-marker-radius mr-1"></i>{{data.city_id}}</p>
+                                                    {% if data.description == '' %}
+                                                    <p class="text-muted">No Description</p>
+                                                    {% else %}
+                                                    <p class="text-muted">{{data.description|linebreaks}}</p>
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                             <div class="property-action">
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="280 square feet"><i class="mdi mdi-view-grid"></i><span>280</span></a>
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="4 Bedroom House"><i class="mdi mdi-hotel"></i><span>4</span></a>
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="2 Parking space"><i class="mdi mdi-car"></i><span>2</span></a>
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="24h Electricity"><i class="mdi mdi-battery-charging-80"></i><span> 24H</span></a>
+                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{data.carpet_area}} square feet"><i class="mdi mdi-view-grid"></i><span>{{data.carpet_area}}</span></a>
+                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{data.bedroom}} Bedroom House"><i class="mdi mdi-hotel"></i><span>{{data.bedroom}}</span></a>
+                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{data.bathroom}} Bathroom House"><i class="mdi mdi-shower"></i><span>{{data.bathroom}}</span></a>
                                                 <div class="float-right">
-                                                    <a href="#" class="btn btn-light"><i class="far fa-heart"></i><span>Save</span></a>
+                                                    <a href="{% url 'admin_edit_property' data.id %}" class="btn btn-light"><i class="mdi mdi-pencil-outline"></i><span>Edit</span></a>
+                                                    <a href="{% url 'admin_property_delete' data.id %}" class="btn btn-danger"><i class="mdi mdi-delete "></i><span style="color: aliceblue;">Delete</span></a>
                                                 </div>
                                             </div>
                                             <!-- end. Card actions -->
@@ -81,163 +109,12 @@
                                 </div>
                                 <!-- /inner row -->
                             </div>
+                            {% endfor %}
+                            {% else %}
+                            <p>No Property Listed</p>
+                            {% endif %}
                             <!-- End property item -->
 
-                            <div class="property-card property-horizontal card">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="property-image" style="background: url('assets/images/properties/2.jpg') center center / cover no-repeat;">
-                                            <span class="property-label badge badge-warning">For Rent</span>
-                                        </div>
-                                    </div>
-                                    <!-- /col 4 -->
-                                    <div class="col-sm-8">
-                                        <div class="property-content">
-                                            <div class="listingInfo px-3 p-sm-0">
-                                                <div class="">
-                                                    <h5 class="font-18 text-success">$390,000 - $430,000</h5>
-                                                </div>
-                                                <div class="">
-                                                    <h5><a href="#" class="text-dark">4BHK Alexander Court,New York</a></h5>
-                                                    <p class="text-muted"><i class="mdi mdi-map-marker-radius mr-1"></i>245 E 20th St, New York, NY 201609</p>
-
-                                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit Aliquam gravida magna et fringilla convallis. Pellentesque habitant morb</p>
-                                                </div>
-                                            </div>
-                                            <div class="property-action">
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="280 square feet"><i class="mdi mdi-view-grid"></i><span>280</span></a>
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="4 Bedroom House"><i class="mdi mdi-hotel"></i><span>4</span></a>
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="2 Parking space"><i class="mdi mdi-car"></i><span>2</span></a>
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="24h Electricity"><i class="mdi mdi-battery-charging-80"></i><span> 24H</span></a>
-                                                <div class="float-right">
-                                                    <a href="#" class="btn btn-light"><i class="far fa-heart"></i><span>Save</span></a>
-                                                </div>
-                                            </div>
-                                            <!-- end. Card actions -->
-                                        </div>
-                                    </div>
-                                    <!-- /col 8 -->
-                                </div>
-                                <!-- /inner row -->
-                            </div>
-                            <!-- End property item -->
-
-                            <div class="property-card property-horizontal card">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="property-image" style="background: url('assets/images/properties/3.jpg') center center / cover no-repeat;">
-                                            <span class="property-label badge badge-danger">For Sale</span>
-                                        </div>
-                                    </div>
-                                    <!-- /col 4 -->
-                                    <div class="col-sm-8">
-                                        <div class="property-content">
-                                            <div class="listingInfo px-3 p-sm-0">
-                                                <div class="">
-                                                    <h5 class="font-18 text-success">$390,000 - $430,000</h5>
-                                                </div>
-                                                <div class="">
-                                                    <h5><a href="#" class="text-dark">4BHK Alexander Court,New York</a></h5>
-                                                    <p class="text-muted"><i class="mdi mdi-map-marker-radius mr-1"></i>245 E 20th St, New York, NY 201609</p>
-
-                                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit Aliquam gravida magna et fringilla convallis. Pellentesque habitant morb</p>
-                                                </div>
-                                            </div>
-                                            <div class="property-action">
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="280 square feet"><i class="mdi mdi-view-grid"></i><span>280</span></a>
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="4 Bedroom House"><i class="mdi mdi-hotel"></i><span>4</span></a>
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="2 Parking space"><i class="mdi mdi-car"></i><span>2</span></a>
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="24h Electricity"><i class="mdi mdi-battery-charging-80"></i><span> 24H</span></a>
-                                                <div class="float-right">
-                                                    <a href="#" class="btn btn-light"><i class="far fa-heart"></i><span>Save</span></a>
-                                                </div>
-                                            </div>
-                                            <!-- end. Card actions -->
-                                        </div>
-                                    </div>
-                                    <!-- /col 8 -->
-                                </div>
-                                <!-- /inner row -->
-                            </div>
-                            <!-- End property item -->
-
-                            <div class="property-card property-horizontal card">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="property-image" style="background: url('assets/images/properties/4.jpg') center center / cover no-repeat;">
-                                            <span class="property-label badge badge-danger">For Sale</span>
-                                        </div>
-                                    </div>
-                                    <!-- /col 4 -->
-                                    <div class="col-sm-8">
-                                        <div class="property-content">
-                                            <div class="listingInfo px-3 p-sm-0">
-                                                <div class="">
-                                                    <h5 class="font-18 text-success">$390,000 - $430,000</h5>
-                                                </div>
-                                                <div class="">
-                                                    <h5><a href="#" class="text-dark">4BHK Alexander Court,New York</a></h5>
-                                                    <p class="text-muted"><i class="mdi mdi-map-marker-radius mr-1"></i>245 E 20th St, New York, NY 201609</p>
-
-                                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit Aliquam gravida magna et fringilla convallis. Pellentesque habitant morb</p>
-                                                </div>
-                                            </div>
-                                            <div class="property-action">
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="280 square feet"><i class="mdi mdi-view-grid"></i><span>280</span></a>
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="4 Bedroom House"><i class="mdi mdi-hotel"></i><span>4</span></a>
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="2 Parking space"><i class="mdi mdi-car"></i><span>2</span></a>
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="24h Electricity"><i class="mdi mdi-battery-charging-80"></i><span> 24H</span></a>
-                                                <div class="float-right">
-                                                    <a href="#" class="btn btn-light"><i class="far fa-heart"></i><span>Save</span></a>
-                                                </div>
-                                            </div>
-                                            <!-- end. Card actions -->
-                                        </div>
-                                    </div>
-                                    <!-- /col 8 -->
-                                </div>
-                                <!-- /inner row -->
-                            </div>
-                            <!-- End property item -->
-
-                            <div class="property-card property-horizontal card">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="property-image" style="background: url('assets/images/properties/5.jpg') center center / cover no-repeat;">
-                                            <span class="property-label badge badge-warning">For Rent</span>
-                                        </div>
-                                    </div>
-                                    <!-- /col 4 -->
-                                    <div class="col-sm-8">
-                                        <div class="property-content">
-                                            <div class="listingInfo px-3 p-sm-0">
-                                                <div class="">
-                                                    <h5 class="font-18 text-success">$390,000 - $430,000</h5>
-                                                </div>
-                                                <div class="">
-                                                    <h5><a href="#" class="text-dark">4BHK Alexander Court,New York</a></h5>
-                                                    <p class="text-muted"><i class="mdi mdi-map-marker-radius mr-1"></i>245 E 20th St, New York, NY 201609</p>
-
-                                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit Aliquam gravida magna et fringilla convallis. Pellentesque habitant morb</p>
-                                                </div>
-                                            </div>
-                                            <div class="property-action">
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="280 square feet"><i class="mdi mdi-view-grid"></i><span>280</span></a>
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="4 Bedroom House"><i class="mdi mdi-hotel"></i><span>4</span></a>
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="2 Parking space"><i class="mdi mdi-car"></i><span>2</span></a>
-                                                <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="24h Electricity"><i class="mdi mdi-battery-charging-80"></i><span> 24H</span></a>
-                                                <div class="float-right">
-                                                    <a href="#" class="btn btn-light"><i class="far fa-heart"></i><span>Save</span></a>
-                                                </div>
-                                            </div>
-                                            <!-- end. Card actions -->
-                                        </div>
-                                    </div>
-                                    <!-- /col 8 -->
-                                </div>
-                                <!-- /inner row -->
-                            </div>
-                            <!-- End property item -->
 
                             <div>
                                 <ul class="pagination pagination-split justify-content-end">
@@ -354,6 +231,7 @@
     <script src="{% static 'adminassets/js/vendor.min.js'%}"></script>
 
     <script src="{% static 'adminassets/libs/bootstrap-select/bootstrap-select.min.js'%}"></script>
-
+ <!-- App js -->
+ <script src="{% static 'adminassets/js/app.min.js'%}"></script>
 
 {% endblock %}

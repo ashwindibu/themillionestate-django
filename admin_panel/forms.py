@@ -1,9 +1,10 @@
+from cProfile import label
 from dataclasses import fields
 from email.mime import multipart
 from pyexpat import model
 from turtle import title
 from django import forms
-from django.forms import ChoiceField, ImageField, ModelChoiceField, SelectMultiple
+from django.forms import ChoiceField, HiddenInput, ImageField, ModelChoiceField, SelectMultiple
 from property.models import PropertyFor, PropertyType, Property, Features, Country, State, City
 from base.models import UserType
 
@@ -71,7 +72,10 @@ class CityForm(forms.ModelForm):
 #         model = Property
 #         fields = '__all__'
 
-# class FeaturesForm(forms.ModelForm):
-#     class Meta:
-#         model = Features
-#         fields = '__all__'
+class FeaturesForm(forms.ModelForm):
+ 
+    class Meta:
+        model = Features
+        fields = '__all__'
+        
+        

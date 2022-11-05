@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from email.policy import default
 from django.db import models
 from ckeditor.fields import RichTextField
@@ -58,20 +59,20 @@ class Property(models.Model):
     locality                    = models.CharField(max_length=255)
     bedroom                     = models.IntegerField()
     bathroom                    = models.IntegerField()
-    balcony                     = models.IntegerField()
+    balcony                     = models.IntegerField(default=None, blank=True, null=True)
     carpet_area                 = models.IntegerField()
-    builtup_area                = models.IntegerField()
-    superbuiltup_area           = models.IntegerField()
-    floors                      = models.IntegerField()
-    property_age                = models.IntegerField()
+    builtup_area                = models.IntegerField(default=None, blank=True, null=True)
+    superbuiltup_area           = models.IntegerField(default=None, blank=True, null=True)
+    floors                      = models.IntegerField(default=None, blank=True, null=True)
+    property_age                = models.IntegerField(default=None, blank=True, null=True)
     property_status             = models.CharField(max_length=30, choices=PropertyStatus.choices, default=PropertyStatus.READY_TO_MOVE)
     furnishing_status           = models.CharField(max_length=30, choices=FurnishingStatus.choices, default=FurnishingStatus.UNFURNISHED)
     available_for               = models.CharField(max_length=30, choices=AvailableFor.choices, default=AvailableFor.ALL)
-    parking                     = models.IntegerField()
+    parking                     = models.IntegerField(default=None, blank=True, null=True)
     published                   = models.BooleanField(default=True)
     created_at                  = models.DateTimeField(auto_now_add=True)
     updated_at                  = models.DateTimeField(auto_now=True)
-
+    featured_image              = models.ImageField(upload_to='photo/featured_image')
     user_id                     = models.ForeignKey(Account, on_delete=models.CASCADE, blank=False, null=False)
     city_id                     = models.ForeignKey(City, on_delete=models.SET_NULL, blank=True, null=True)
     property_type_id            = models.ForeignKey(PropertyType, on_delete=models.SET_NULL, blank=True, null=True)
