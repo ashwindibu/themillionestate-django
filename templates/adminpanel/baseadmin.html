@@ -209,7 +209,7 @@
                         <div class="dropdown-divider"></div>
 
                         <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <a href="{% url 'admin_logout'%}" class="dropdown-item notify-item">
                             <i class="mdi mdi-logout-variant"></i>
                             <span>Logout</span>
                         </a>
@@ -260,38 +260,9 @@
                         </div>
                     </form>
                 </li>
+                
 
-                <li class="d-none d-lg-block">
-                    <a href="#" class="nav-link">New</a>
-                </li>
-
-                <li class="dropdown d-none d-lg-block">
-                    <a class="nav-link dropdown-toggle mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="assets/images/flags/us.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">English <i class="mdi mdi-chevron-down"></i> </span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="assets/images/flags/germany.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">German</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="assets/images/flags/italy.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Italian</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="assets/images/flags/spain.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Spanish</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="assets/images/flags/russia.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Russian</span>
-                        </a>
-
-                    </div>
-                </li>
+                
 
 
             </ul>
@@ -523,8 +494,8 @@
     <a href="javascript:void(0);" class="right-bar-toggle demos-show-btn">
         <i class="mdi mdi-settings-outline mdi-spin"></i> &nbsp;Choose Demos
     </a>
-
-    <!-- Vendor js -->
+<!-- 
+    Vendor js
     <script src="{% static 'adminassets/js/vendor.min.js'%}"></script>
 
     <script src="{% static 'adminassets/libs/morris-js/morris.min.js'%}"></script>
@@ -532,8 +503,8 @@
 
     <script src="{% static 'adminassets/js/pages/dashboard.init.js'%}"></script>
 
-    <!-- App js -->
-    <script src="{% static 'adminassets/js/app.min.js'%}"></script>
+    App js
+    <script src="{% static 'adminassets/js/app.min.js'%}"></script> -->
 
 </body>
 

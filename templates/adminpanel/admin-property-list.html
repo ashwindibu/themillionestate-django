@@ -118,27 +118,39 @@
 
                             <div>
                                 <ul class="pagination pagination-split justify-content-end">
+                                    {% if datas.has_other_pages %}
+                                    {% if datas.has_previous %}
+                                    <li class="page-item ">
+                                        <a href="?page={{datas.previous_page_number}}" class="page-link"><i class="fa fa-angle-left"></i></a>
+                                    </li>
+                                    {% else %}
+                                    <li class="page-item disabled" >
+                                        <a href="#" class="page-link"><i style="color:rgb(189, 189, 189);" class="fa fa-angle-left"></i></a>
+                                    </li>
+                                    {% endif %}
+
+                                    {% for i in datas.paginator.page_range %}
+                                        {% if datas.number == i %}
+                                        <li class="page-item active">
+                                            <a href="#" class="page-link">{{i}}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item ">
+                                            <a href="?page={{i}}" class="page-link">{{i}}</a>
+                                        </li>
+                                    {% endif %}
+                                    {% endfor %}
+                                    
+                                    {% if datas.has_next %}
+                                    <li class="page-item">
+                                        <a href="?page={{datas.next_page_number}}" class="page-link"><i class="fa fa-angle-right"></i></a>
+                                    </li>
+                                    {% else %}
                                     <li class="page-item disabled">
-                                        <a href="#" class="page-link"><i class="fa fa-angle-left"></i></a>
+                                        <a href="#" class="page-link"><i  style="color:rgb(189, 189, 189);" class="fa fa-angle-right"></i></a>
                                     </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">1</a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a href="#" class="page-link">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">4</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">5</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link"><i class="fa fa-angle-right"></i></a>
-                                    </li>
+                                    {% endif %}
+                                    {% endif %}
                                 </ul>
 
                             </div>

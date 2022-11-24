@@ -3,7 +3,8 @@ from gettext import dgettext
 from django.urls import path
 from . import views
 
-urlpatterns = [ 
+urlpatterns = [
+    path('admin-login',views.admin_login, name="admin_login"),
     path('', views.home, name='admindashboard'),
     path('adminproperty-list', views.admin_property_list, name='admin-property-lis'),
     path('admin-property-delete/<str:pk>/', views.admin_property_delete, name='admin_property_delete'),
@@ -28,4 +29,6 @@ urlpatterns = [
     path('admin-city-list',views.admin_city_list, name="admin_city_list"),
     path('city-add', views.city_add, name="city_add"),
     path('city_delete/<str:pk>', views.city_delete, name="city_delete"),
+    path('admin-login',views.admin_login, name="admin_login"),
+    path('admin-logout',views.admin_logout, name="admin_logout")
     ]

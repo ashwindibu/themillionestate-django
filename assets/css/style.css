@@ -1206,7 +1206,7 @@ blockquot {
 }
 
 .bg-overlay-dark3:before {
-	background-color: rgba(52, 73, 94, 0.4);
+	background-color: rgba(6, 29, 53, 0.483);
 }
 
 .bg-overlay-gradient:before {
@@ -6615,6 +6615,7 @@ li.dropdown-submenu > ul.dropdown-menu > li.has-dropdown > ul.dropdown-menu.left
 
 .owl-thumbs .owl-thumb-item img {
 	max-width: 100%;
+
 }
 
 .property-single-slider .slider--text {
@@ -8458,6 +8459,8 @@ ul.comments-list ul.comment-children {
 
 .owl-thumb-item img {
 	opacity: 0.8;
+	height: 90px;
+	width: 100%;
 }
 
 .owl-thumb-item.active img {

@@ -4,6 +4,14 @@
 {% block head %}
     <meta name="description" content="Real Estate Website in Kerala Kochi">
     <title>The Million Estate | Real Estate Webstie | Buy Sell Rent</title>
+    <style>
+        .image-resize{
+            height: 240px;
+            object-fit: cover;
+            object-position: center;
+        }
+    </style>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 {% endblock %}
 
 {% block content %}
@@ -18,12 +26,15 @@
                             <div class="text-center">
                                 <h1>Find Your Favorite Property</h1>
                             </div>
-                            <form class="mb-0">
+                            <form class="mb-0" action="{% url 'propertys' %}">
                                 <div class="form-box search-properties">
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-6 col-md-3">
                                             <div class="form-group">
-                                                <div class="select--box">
+                                                <input type="search" id="search" name="search"  class="form-control" placeholder="Search Locality" />
+
+
+                                                <!-- <div class="select--box">
                                                     <i class="fa fa-angle-down"></i>
                                                     <select name="select-location" id="select-location">
                                                         <option>Any Location</option>
@@ -34,7 +45,8 @@
                                                         <option>Mississippi</option>
                                                         <option>Oregon</option>
                                                     </select>
-                                                </div>
+                                                </div> -->
+
                                             </div>
                                         </div>
                                         <!-- .col-md-3 end -->
@@ -42,12 +54,11 @@
                                             <div class="form-group">
                                                 <div class="select--box">
                                                     <i class="fa fa-angle-down"></i>
-                                                    <select name="select-type" id="select-type">
-                                                        <option>Any Type</option>
-                                                        <option>Apartment</option>
-                                                        <option>House</option>
-                                                        <option>Office</option>
-                                                        <option>Villa</option>
+                                                    <select name="property-type" id="select-type">
+                                                        <option value="">Any Type</option>
+                                                        {% for property_type in property_types %}
+                                                        <option value="{{property_type.id}}" >{{property_type}}</option>
+                                                        {% endfor %}
                                                     </select>
                                                 </div>
                                             </div>
@@ -57,59 +68,62 @@
                                             <div class="form-group">
                                                 <div class="select--box">
                                                     <i class="fa fa-angle-down"></i>
-                                                    <select name="select-status" id="select-status">
-                                                        <option>Any Status</option>
-                                                        <option>For Rent</option>
-                                                        <option>For Sale</option>
+                                                    <select name="property-status" id="select-status">
+                                                        <option value="">Any Status</option>
+                                                        {% for property_for in property_for %}
+                                                        <option value="{{property_for.id}}">{{ property_for.property_for_name }}</option>
+                                                        {% endfor %}
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
+
+
                                         <!-- .col-md-3 end -->
+                                        <!-- Submit button  -->
                                         <div class="col-xs-12 col-sm-6 col-md-3">
-                                            <input type="submit" value="Search" name="submit"
-                                                class="btn btn--primary btn--block">
+                                            <input type="submit" class="btn btn--primary btn--block">
+                                        </div>
+                                        <!-- Submit end -->
+                                        <!-- .col-md-3 end -->
+
+
+                                        <div class="col-xs-12 col-sm-6 col-md-3 option-hide">
+                                            <div class="form-group">
+                                                <div class="select--box">
+                                                    <i class="fa fa-angle-down"></i>
+                                                    <select name="property-beds" id="select-beds">
+                                                        <option value="">Beds</option>
+                                                        
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                   
+
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                         <!-- .col-md-3 end -->
                                         <div class="col-xs-12 col-sm-6 col-md-3 option-hide">
                                             <div class="form-group">
                                                 <div class="select--box">
                                                     <i class="fa fa-angle-down"></i>
-                                                    <select name="select-beds" id="select-beds">
-                                                        <option>Beds</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
+                                                    <select name="property-baths" id="select-baths">
+                                                        <option value="">Baths</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- .col-md-3 end -->
-                                        <div class="col-xs-12 col-sm-6 col-md-3 option-hide">
-                                            <div class="form-group">
-                                                <div class="select--box">
-                                                    <i class="fa fa-angle-down"></i>
-                                                    <select name="select-baths" id="select-baths">
-                                                        <option>Baths</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- .col-md-3 end -->
-                                        <div class="col-xs-12 col-sm-6 col-md-6 option-hide">
-                                            <div class="filter mb-30">
-                                                <p>
-                                                    <label for="amount">Price Range: </label>
-                                                    <input id="amount" type="text" class="amount" readonly>
-                                                </p>
-                                                <div class="slider-range"></div>
-                                            </div>
-                                        </div>
+                                       
                                         <!-- .col-md-3 end -->
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <a href="#" class="less--options">More options</a>
@@ -130,27 +144,29 @@
                 <!-- Slide #1 -->
                 <div class="slide--item bg-overlay bg-overlay-dark3">
                     <div class="bg-section">
-                        <img src="assets/images/slider/slide-bg/3.jpg" alt="background">
+                        <img src="media/photo/hero_image/mumbai-skyline.jpg" alt="background">
                     </div>
                 </div>
                 <!-- .slide-item end -->
                 <!-- Slide #2 -->
                 <div class="slide--item bg-overlay bg-overlay-dark3">
                     <div class="bg-section">
-                        <img src="assets/images/slider/slide-bg/1.jpg" alt="background">
+                        <img src="media/photo/hero_image/house-field.jpg" alt="background">
                     </div>
                 </div>
                 <!-- .slide-item end -->
                 <!-- Slide #3 -->
                 <div class="slide--item bg-overlay bg-overlay-dark3">
                     <div class="bg-section">
-                        <img src="assets/images/slider/slide-bg/3.jpg" alt="background">
+                        <img src="https://www.axinosreal.com/assets/images/sum/Optimus-2-b.jpg" alt="background">
                     </div>
                 </div>
                 <!-- .slide-item end -->
             </div>
         </section>
         <!-- #property-single-slider end -->
+
+
 
         <!-- properties-carousel
 ============================================= -->
@@ -160,6 +176,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="heading heading-2 text-center mb-70">
                             <h2 class="heading--title">Latest Properties</h2>
+
                             <p class="heading--desc">Duis aute irure dolor in reprehed in volupted velit esse dolore</p>
                         </div>
                         <!-- .heading-title end -->
@@ -171,190 +188,39 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="carousel carousel-dots" data-slide="3" data-slide-rs="2" data-autoplay="true"
                             data-nav="false" data-dots="true" data-space="25" data-loop="true" data-speed="800">
+
+
                             <!-- .property-item #1 -->
+                            {% for latest_property in latest_propertys %}
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/3.jpg" alt="property image"
-                                            class="img-responsive">
-                                        <span class="property--status">For Sale</span>
+                                        <img src="{{latest_property.featured_image.url}}" alt="property image"
+                                            class="img-responsive image-resize">
+                                        <span class="property--status">For {{latest_property.property_for_id.property_for_name}}</span>
                                     </a>
                                 </div>
                                 <div class="property--content">
                                     <div class="property--info">
-                                        <h5 class="property--title"><a href="#">Apartment in Long St.</a></h5>
-                                        <p class="property--location">34 Long St, Jersey City, NJ 07305</p>
-                                        <p class="property--price">$70,000</p>
+                                        <h5 class="property--title"><a href="#">{{latest_property.title}}</a></h5>
+                                        <p class="property--location">{{latest_property.locality}}</p>
+                                        <p class="property--price">₹{{latest_property.indian_currency}}</p>
                                     </div>
                                     <!-- .property-info end -->
                                     <div class="property--features">
                                         <ul class="list-unstyled mb-0">
-                                            <li><span class="feature">Beds:</span><span class="feature-num">2</span>
+                                            <li><span class="feature">Beds:</span><span class="feature-num">{{latest_property.bedroom}}</span>
                                             </li>
-                                            <li><span class="feature">Baths:</span><span class="feature-num">1</span>
+                                            <li><span class="feature">Baths:</span><span class="feature-num">{{latest_property.bathroom}}</span>
                                             </li>
-                                            <li><span class="feature">Area:</span><span class="feature-num">200 sq
+                                            <li><span class="feature">Area:</span><span class="feature-num">{{latest_property.carpet_area}} sq
                                                     ft</span></li>
                                         </ul>
                                     </div>
                                     <!-- .property-features end -->
                                 </div>
                             </div>
-                            <!-- .property item end -->
-
-                            <!-- .property-item #2 -->
-                            <div class="property-item">
-                                <div class="property--img">
-                                    <a href="#">
-                                        <img src="assets/images/properties/11.jpg" alt="property image"
-                                            class="img-responsive">
-                                        <span class="property--status">For Sale</span>
-                                    </a>
-                                </div>
-                                <div class="property--content">
-                                    <div class="property--info">
-                                        <h5 class="property--title">Villa in Chicago IL</h5>
-                                        <p class="property--location">1445 N State Pkwy, Chicago, IL 60610</p>
-                                        <p class="property--price">$235,000</p>
-                                    </div>
-                                    <!-- .property-info end -->
-                                    <div class="property--features">
-                                        <ul class="list-unstyled mb-0">
-                                            <li><span class="feature">Beds:</span><span class="feature-num">3</span>
-                                            </li>
-                                            <li><span class="feature">Baths:</span><span class="feature-num">2</span>
-                                            </li>
-                                            <li><span class="feature">Area:</span><span class="feature-num">1120 sq
-                                                    ft</span></li>
-                                        </ul>
-                                    </div>
-                                    <!-- .property-features end -->
-                                </div>
-                            </div>
-                            <!-- .property item end -->
-
-                            <!-- .property-item #3 -->
-                            <div class="property-item">
-                                <div class="property--img">
-                                    <a href="#">
-                                        <img src="assets/images/properties/5.jpg" alt="property image"
-                                            class="img-responsive">
-                                        <span class="property--status">For Rent</span>
-                                    </a>
-                                </div>
-                                <div class="property--content">
-                                    <div class="property--info">
-                                        <h5 class="property--title">2750 House in Urban St.</h5>
-                                        <p class="property--location">2750 Urban Street Dr, Anderson, IN 46011</p>
-                                        <p class="property--price">$1,550<span class="time">month</span></p>
-                                    </div>
-                                    <!-- .property-info end -->
-                                    <div class="property--features">
-                                        <ul class="list-unstyled mb-0">
-                                            <li><span class="feature">Beds:</span><span class="feature-num">2</span>
-                                            </li>
-                                            <li><span class="feature">Baths:</span><span class="feature-num">2</span>
-                                            </li>
-                                            <li><span class="feature">Area:</span><span class="feature-num">1390 sq
-                                                    ft</span></li>
-                                        </ul>
-                                    </div>
-                                    <!-- .property-features end -->
-                                </div>
-                            </div>
-                            <!-- .property item end -->
-
-                            <!-- .property-item #4 -->
-                            <div class="property-item">
-                                <div class="property--img">
-                                    <a href="#">
-                                        <img src="assets/images/properties/4.jpg" alt="property image"
-                                            class="img-responsive">
-                                        <span class="property--status">For Sale</span>
-                                    </a>
-                                </div>
-                                <div class="property--content">
-                                    <div class="property--info">
-                                        <h5 class="property--title"><a href="#">House in Kent Street</a></h5>
-                                        <p class="property--location">127 Kent Street, Sydney, NSW 2000</p>
-                                        <p class="property--price">$130,000</p>
-                                    </div>
-                                    <!-- .property-info end -->
-                                    <div class="property--features">
-                                        <ul class="list-unstyled mb-0">
-                                            <li><span class="feature">Beds:</span><span class="feature-num">2</span>
-                                            </li>
-                                            <li><span class="feature">Baths:</span><span class="feature-num">2</span>
-                                            </li>
-                                            <li><span class="feature">Area:</span><span class="feature-num">587 sq
-                                                    ft</span></li>
-                                        </ul>
-                                    </div>
-                                    <!-- .property-features end -->
-                                </div>
-                            </div>
-                            <!-- .property item end -->
-
-                            <!-- .property-item #5 -->
-                            <div class="property-item">
-                                <div class="property--img">
-                                    <a href="#">
-                                        <img src="assets/images/properties/2.jpg" alt="property image"
-                                            class="img-responsive">
-                                        <span class="property--status">For Rent</span>
-                                    </a>
-                                </div>
-                                <div class="property--content">
-                                    <div class="property--info">
-                                        <h5 class="property--title"><a href="#">Villa in Oglesby Ave</a></h5>
-                                        <p class="property--location">1035 Oglesby Ave, Chicago, IL 60617</p>
-                                        <p class="property--price">$130,000<span class="time">month</span></p>
-                                    </div>
-                                    <!-- .property-info end -->
-                                    <div class="property--features">
-                                        <ul class="list-unstyled mb-0">
-                                            <li><span class="feature">Beds:</span><span class="feature-num">4</span>
-                                            </li>
-                                            <li><span class="feature">Baths:</span><span class="feature-num">3</span>
-                                            </li>
-                                            <li><span class="feature">Area:</span><span class="feature-num">800 sq
-                                                    ft</span></li>
-                                        </ul>
-                                    </div>
-                                    <!-- .property-features end -->
-                                </div>
-                            </div>
-                            <!-- .property item end -->
-
-                            <!-- .property-item #6 -->
-                            <div class="property-item">
-                                <div class="property--img">
-                                    <a href="#">
-                                        <img src="assets/images/properties/3.jpg" alt="property image"
-                                            class="img-responsive">
-                                        <span class="property--status">For Sale</span>
-                                    </a>
-                                </div>
-                                <div class="property--content">
-                                    <div class="property--info">
-                                        <h5 class="property--title"><a href="#">Apartment in Long St.</a></h5>
-                                        <p class="property--location">34 Long St, Jersey City, NJ 07305</p>
-                                        <p class="property--price">$70,000</p>
-                                    </div>
-                                    <!-- .property-info end -->
-                                    <div class="property--features">
-                                        <ul class="list-unstyled mb-0">
-                                            <li><span class="feature">Beds:</span><span class="feature-num">2</span>
-                                            </li>
-                                            <li><span class="feature">Baths:</span><span class="feature-num">1</span>
-                                            </li>
-                                            <li><span class="feature">Area:</span><span class="feature-num">200 sq
-                                                    ft</span></li>
-                                        </ul>
-                                    </div>
-                                    <!-- .property-features end -->
-                                </div>
-                            </div>
+                            {% endfor %}
                             <!-- .property item end -->
 
                         </div>
@@ -367,6 +233,9 @@
             <!-- .container -->
         </section>
         <!-- #properties-carousel  end  -->
+
+
+
 
         <!-- Feature
 ============================================= -->
@@ -661,9 +530,20 @@
 
 
     <!-- JavaScript Bundle with Popper -->
-
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+    <script>
+        //for giving suggestions in search box by calling an API
+        $(function(){
+            $("#search").autocomplete({
+                source: '{% url "suggestionapi" %}',
+                minLength: 2
+        }); 
+    });
+    </script>
     <script src="{% static 'js/jquery-2.2.4.min.js'%}"></script>
     <script src="{% static 'js/plugins.js'%}"></script>
     <script src="{% static 'js/functions.js'%}"></script>
+
 
 {% endblock %}

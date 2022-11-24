@@ -73,9 +73,14 @@ class CityForm(forms.ModelForm):
 #         fields = '__all__'
 
 class FeaturesForm(forms.ModelForm):
- 
+    
+    
+
     class Meta:
         model = Features
         fields = '__all__'
+        exclude = ('property_id',)
         
+        
+
         

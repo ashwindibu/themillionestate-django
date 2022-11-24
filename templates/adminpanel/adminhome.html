@@ -39,7 +39,7 @@
                             <div class="card-box tilebox-two border-success">
                                 <i class="mdi mdi-currency-usd float-right"></i>
                                 <h6 class="text-success text-uppercase mb-3 mt-2">This Month Revenue</h6>
-                                <h2 class="mb-2">$<span data-plugin="counterup">12,455</span></h2>
+                                <h2 class="mb-2">₹<span data-plugin="counterup">0</span></h2>
                             </div>
                         </div>
 
@@ -47,7 +47,7 @@
                             <div class="card-box tilebox-two border-primary">
                                 <i class="mdi mdi-home-map-marker float-right"></i>
                                 <h6 class="text-primary text-uppercase mb-3 mt-2">Total Properties</h6>
-                                <h2 class="mb-2"><span data-plugin="counterup">1,452</span></h2>
+                                <h2 class="mb-2"><span data-plugin="counterup">{{total_property}}</span></h2>
                             </div>
                         </div>
 
@@ -55,7 +55,7 @@
                             <div class="card-box tilebox-two border-pink">
                                 <i class="mdi mdi-comment-multiple-outline float-right"></i>
                                 <h6 class="text-pink text-uppercase mb-3 mt-2">This month Inquiries</h6>
-                                <h2 class="mb-2" data-plugin="counterup">1,587</h2>
+                                <h2 class="mb-2" data-plugin="counterup">0</h2>
                             </div>
                         </div>
 
@@ -63,7 +63,7 @@
                             <div class="card-box tilebox-two border-info">
                                 <i class="mdi mdi-account-multiple float-right"></i>
                                 <h6 class="text-info text-uppercase mb-3 mt-2">Registered Users</h6>
-                                <h2 class="mb-2"><span data-plugin="counterup">46,782</span></h2>
+                                <h2 class="mb-2"><span data-plugin="counterup">0</span></h2>
                             </div>
                         </div>
 
@@ -316,7 +316,7 @@
 
         <!-- Vendor js -->
     <script src="{% static 'adminassets/js/vendor.min.js'%}"></script>
-
+    <script src="{% static 'adminassets/js/app.min.js'%}"></script>
     <script src="{% static 'adminassets/libs/flot-charts/jquery.flot.js'%}"></script>
     <script src="{% static 'adminassets/libs/flot-charts/jquery.flot.time.js'%}"></script>
     <script src="{% static 'adminassets/libs/flot-charts/jquery.flot.tooltip.min.js'%}"></script>

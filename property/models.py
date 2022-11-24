@@ -3,6 +3,7 @@ from email.policy import default
 from django.db import models
 from ckeditor.fields import RichTextField
 from base.models import Account
+from django.urls import reverse
 # Create your models here.
 
 class Country(models.Model):
@@ -27,6 +28,9 @@ class PropertyType(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
     description = models.TextField(max_length=255, blank=True)
     property_type_image = models.ImageField(upload_to='photo/property_type_image/', blank=True)
+
+    def get_url(self):
+        return reverse('property_by_category', args=[self.slug])
 
     def __str__(self):
         return self.property_type_name
