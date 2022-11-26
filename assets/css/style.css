@@ -6789,7 +6789,7 @@ li.dropdown-submenu > ul.dropdown-menu > li.has-dropdown > ul.dropdown-menu.left
 	right: 0;
 	min-width: 100%;
 	min-height: 100%;
-	font-size: 100px;
+	font-size: 7px;
 	text-align: right;
 	filter: alpha(opacity=0);
 	opacity: 0;

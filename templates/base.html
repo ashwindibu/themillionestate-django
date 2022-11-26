@@ -25,6 +25,8 @@
     <link href="{% static 'css/external.css' %}" rel="stylesheet">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
       <script src="assets/js/html5shiv.js"></script>
@@ -33,7 +35,7 @@
 
     <!-- Document Title
     ============================================= -->
-    
+
     {% block head %}
     <!-- head -->
     {% endblock %}
@@ -50,9 +52,11 @@
     <!-- content -->
     {% endblock %}
 
-        {% include 'includes/footer.html' %}
+    {% include 'includes/login.html' %}
+    {% include 'includes/footer.html' %}
 
     <!-- JavaScript Bundle with Popper -->
+
 
 
 </body>

@@ -1,6 +1,9 @@
   {% load static %}
   <!-- Document Wrapper
 	============================================= -->
+
+
+    
     <div id="wrapper" class="wrapper clearfix">
         <header id="navbar-spy" class="header header-1 header-transparent header-fixed">
             <nav id="primary-menu" class="navbar navbar-fixed-top">
@@ -86,17 +89,7 @@
 
 
 
-                            <!-- Profile Menu-->
-                            <!-- <li class="has-dropdown">
-                                <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item">Profile</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="user-profile.html">user profile</a></li>
-                                    <li><a href="social-profile.html">social profile</a></li>
-                                    <li><a href="my-properties.html">my properties</a></li>
-                                    <li><a href="favourite-properties.html">favourite properties</a></li>
-                                    <li><a href="add-property.html">add property</a></li>
-                                </ul>
-                            </li> -->
+
                             <!-- li end -->
 
 
@@ -112,114 +105,51 @@
 
 
                             <li><a href="{% url 'contact' %}">contact</a></li>
+
+                                                        <!-- Profile Menu-->
+                                                        <li class="has-dropdown">
+                                                            <a href="{% url 'user_profile' %}" data-toggle="dropdown" class="dropdown-toggle menu-item">My Profile</a>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a href="{% url 'user_profile' %}">user profile</a></li>
+                                                                <li><a href="{% url 'my_property' %}">my properties</a></li>
+                                                                <li><a href="{% url 'favourite_property' %}">favourite properties</a></li>
+                                                                <li><a href="{% url 'add_property' %}">add property</a></li>
+                                                            </ul>
+                                                        </li>
                         </ul>
                         <!-- Module Signup  -->
                         <div class="module module-login pull-left">
                             <a class="btn-popup" data-toggle="modal" data-target="#signupModule">Login</a>
-                            <div class="modal register-login-modal fade" tabindex="-1" role="dialog" id="signupModule">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <div class="row">
-
-                                                <!-- Nav tabs -->
-                                                <ul class="nav nav-tabs">
-                                                    <li class="active"><a href="#login" data-toggle="tab">login</a>
-                                                    </li>
-                                                    <li><a href="#signup" data-toggle="tab">signup</a>
-                                                    </li>
-                                                </ul>
-                                                <!-- Tab panes -->
-                                                <div class="tab-content">
-                                                    <div class="tab-pane fade in active" id="login">
-                                                        <div class="signup-form-container text-center">
-                                                            <form class="mb-0">
-                                                                <a href="#" class="btn btn--facebook btn--block"><i
-                                                                        class="fa fa-facebook-square"></i>Login with
-                                                                    Facebook</a>
-                                                                <div class="or-text">
-                                                                    <span>or</span>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <input type="email" class="form-control"
-                                                                        name="login-email" id="login-email"
-                                                                        placeholder="Email Address">
-                                                                </div>
-                                                                <!-- .form-group end -->
-                                                                <div class="form-group">
-                                                                    <input type="password" class="form-control"
-                                                                        name="login-password" id="login-password"
-                                                                        placeholder="Password">
-                                                                </div>
-                                                                <!-- .form-group end -->
-                                                                <div class="input-checkbox">
-                                                                    <label class="label-checkbox">
-                                                                        <span>Remember Me</span>
-                                                                        <input type="checkbox">
-                                                                        <span class="check-indicator"></span>
-                                                                    </label>
-                                                                </div>
-                                                                <input type="submit" class="btn btn--primary btn--block"
-                                                                    value="Sign In">
-                                                                <a href="#" class="forget-password">Forget your
-                                                                    password?</a>
-                                                            </form>
-                                                            <!-- form  end -->
-                                                        </div>
-                                                        <!-- .signup-form end -->
-                                                    </div>
-                                                    <div class="tab-pane" id="signup">
-                                                        <form class="mb-0">
-                                                            <a href="#" class="btn btn--facebook btn--block"><i
-                                                                    class="fa fa-facebook-square"></i>Register with
-                                                                Facebook</a>
-                                                            <div class="or-text">
-                                                                <span>or</span>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" name="full-name"
-                                                                    id="full-name" placeholder="Full Name">
-                                                            </div>
-                                                            <!-- .form-group end -->
-                                                            <div class="form-group">
-                                                                <input type="email" class="form-control"
-                                                                    name="register-email" id="register-email"
-                                                                    placeholder="Email Address">
-                                                            </div>
-                                                            <!-- .form-group end -->
-                                                            <div class="form-group">
-                                                                <input type="password" class="form-control"
-                                                                    name="register-password" id="register-password"
-                                                                    placeholder="Password">
-                                                            </div>
-                                                            <!-- .form-group end -->
-                                                            <div class="input-checkbox">
-                                                                <label class="label-checkbox">
-                                                                    <span>I agree with all <a href="#">Terms &
-                                                                            Conditions</a></span>
-                                                                    <input type="checkbox">
-                                                                    <span class="check-indicator"></span>
-                                                                </label>
-                                                            </div>
-                                                            <input type="submit" class="btn btn--primary btn--block"
-                                                                value="Register">
-                                                        </form>
-                                                        <!-- form  end -->
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
-                                </div>
-                                <!-- /.modal -->
-                            </div>
+                            <a class="btn-popup" id="signup-btn"  >Sign up</a>
+                            <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#signModal">
+    Launch demo modal
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade " id="signModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
                         </div>
                         <!-- Module Consultation  -->
-                        <div class="module module-property pull-left">
-                            <a href="add-property.html" target="_blank" class="btn"><i class="fa fa-plus"></i> add
+                        <div  class="module module-property pull-left">
+                            <a href="{% url 'add_property' %}" target="_self" class="btn"><i class="fa fa-plus"></i> add
                                 property</a>
                         </div>
                     </div>
@@ -227,5 +157,19 @@
                 </div>
                 <!-- /.container-fluid -->
             </nav>
+           
 
+
+            <script>
+                $(document).ready(function(){
+                    $("#signup-btn").click(function(){
+                        $("#signupModule").modal("show");
+                        $("#logintog").removeClass("active");
+                        $("#signuptog").addClass("active");
+                        
+                    });
+                });
+              </script>
+  
+  
         </header>

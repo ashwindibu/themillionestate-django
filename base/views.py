@@ -129,7 +129,6 @@ def propertys(request, category_slug=None):
     #     paginator       = Paginator(property, 6)
     #     page            = request.GET.get('page')
     #     propertys       = paginator.get_page(page)
-    
 
 
     context = {
@@ -157,3 +156,15 @@ def property_single(request, pk):
 
 def login(request):
     return render(request,'login.html')
+
+def user_profile(request):
+    return render(request, 'user-profile.html')
+
+def my_property(request):
+    return render(request, 'my-property.html')
+
+def favourite_property(request):
+    return render(request, 'favourite-property.html')
+
+def add_property(request):
+    return render(request, 'add-property.html')
