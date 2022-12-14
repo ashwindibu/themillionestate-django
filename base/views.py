@@ -1,8 +1,16 @@
+import re
 from django.core.paginator import Paginator
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from property.models import Image, Property, PropertyFor, PropertyType
+from property.models import Image, Property, PropertyFor, PropertyType, City, State, Features
 from django.db.models import Q
+from django.contrib import messages, auth
+from .models import Account
+from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth import authenticate, login, logout
+from .forms import CreateUserForm ,UserProfileForm
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
@@ -154,11 +162,109 @@ def property_single(request, pk):
     }
     return render(request, 'property-single.html', context)
 
-def login(request):
-    return render(request,'login.html')
+# def user_signup(request):
+#     def validate_email_address(email_address):
+#         if not re.search(r"^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$", email_address):
+#             print(f"The email address {email_address} is not valid")
+#             return False
+#         else:
+#             print("valid email")
+#             return True
+            
+#     if request.method == "POST":
+#         full_name           = request.POST['full_name']
+#         register_email      = request.POST['register_email']
+#         register_password   = make_password(request.POST['register_password'])
+#         if validate_email_address(register_email):
+#             if Account.objects.filter(email=register_email):
+#                 return JsonResponse(
+#                     {'success': False, "message":f"The email address: {register_email} is already registered"},
+#                     safe=False
+#                 )
+#             else:
+#                 Account.objects.create(full_name=full_name, email=register_email, password=register_password)
+#                 return JsonResponse(
+#                     {'success': True},
+#                     safe=False
+#                 )
+#         else:
+#             return JsonResponse(
+#                 {'success': False, "message":f"The email address: {register_email} is not valid"},
+#                 safe=False
+#             )
+#     else:
+#         messages.info(request,"Successfuly")
+#         return redirect(home)
+
+# def user_login(request):
+#     if request.method =="POST":
+#         email       = request.POST['user_email']
+#         password    = request.POST['user_password']
+#         print(email," ", password)
+#         user        = auth.authenticate(email=email, password=password)
+#         print(user)
+#         if user is not None:
+#             print("hello")
+#             print(user)
+#             print(user.password)
+#             if check_password()
+#             login(request, user)
+#             return JsonResponse(
+#                 {'success': True, "message":f"Successfully Login"},
+#                 safe=False
+#             )
+#         else:
+#             return JsonResponse(
+#                 {'success': False, "message":f"Credential are not valid"},
+#                 safe=False
+#             )
+# def user_login(request):
+#     return render(request, 'account/login.html')
+
+def user_login(request):
+    if request.method == 'POST':
+        
+        email       = request.POST.get('user_email')
+        password    = request.POST.get('user_password')
+        user = authenticate(request, email=email, password=password)
+        print('hello login \n hey its me login'+email, password)
+
+
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            messages.info(request, 'Email or Password is incorrect')
+            return redirect('accounts/login')
+
+    
+
+def user_logout(request):
+    logout(request)
+    return redirect(home)
+
+def user_register(request):
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(home)
+
+    context = {
+        "form":form
+    }
+    return render(request, 'account/user-register.html', context)
 
 def user_profile(request):
-    return render(request, 'user-profile.html')
+    user = request.user
+    form = UserProfileForm(instance=user)
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+    context = {'form':form}
+    return render(request, 'user-profile.html', context)
 
 def my_property(request):
     return render(request, 'my-property.html')
@@ -166,5 +272,7 @@ def my_property(request):
 def favourite_property(request):
     return render(request, 'favourite-property.html')
 
+@login_required
 def add_property(request):
+  
     return render(request, 'add-property.html')

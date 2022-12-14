@@ -7,9 +7,9 @@ from venv import create
 from django.contrib import messages
 from django.shortcuts import redirect, render
 import os
-from .forms import PropertyTypeForm, PropertyForForm, UserTypeForm, CountryForm, StateForm, CityForm, FeaturesForm
+from .forms import PropertyTypeForm, PropertyForForm, CountryForm, StateForm, CityForm, FeaturesForm
 from property.models import PropertyType, PropertyFor, Property,Country, State, City, Image,Features
-from base.models import UserType, Account
+from base.models import  Account
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.auth import authenticate
 
@@ -141,34 +141,34 @@ def property_for_delete(request,pk):
 
 
 
-#UserType <---->
-def user_type(request):
-    if request.session.has_key('admin'):
-        user_type = UserType.objects.all()
-        return render(request, "adminpanel/admin-user-type.html", {'data':user_type })
-    else:
-        return redirect(admin_login)
+# #UserType <---->
+# def user_type(request):
+#     if request.session.has_key('admin'):
+#         user_type = UserType.objects.all()
+#         return render(request, "adminpanel/admin-user-type.html", {'data':user_type })
+#     else:
+#         return redirect(admin_login)
 
-def user_type_add(request):
-    if request.session.has_key('admin'):
-        form = UserTypeForm
-        if request.method == "POST":
-            form = UserTypeForm(request.POST)
-            if form.is_valid():
-                form.save()
-                messages.success(request, "Succesfully Added")
-                return redirect(user_type_add)
-            else:
-                messages.error(request, "Something Wrong")
-                return redirect(user_type_add)
-        return render(request, 'adminpanel/admin-user-type-add.html', {'form':form})
-    else:
-        return redirect(admin_login)
+# def user_type_add(request):
+#     if request.session.has_key('admin'):
+#         form = UserTypeForm
+#         if request.method == "POST":
+#             form = UserTypeForm(request.POST)
+#             if form.is_valid():
+#                 form.save()
+#                 messages.success(request, "Succesfully Added")
+#                 return redirect(user_type_add)
+#             else:
+#                 messages.error(request, "Something Wrong")
+#                 return redirect(user_type_add)
+#         return render(request, 'adminpanel/admin-user-type-add.html', {'form':form})
+#     else:
+#         return redirect(admin_login)
 
-def user_type_delete(request,pk):
-    UserType.objects.filter(id=int(pk)).delete()
-    messages.success(request, "Deleted Succesfully")
-    return redirect(user_type)
+# def user_type_delete(request,pk):
+#     UserType.objects.filter(id=int(pk)).delete()
+#     messages.success(request, "Deleted Succesfully")
+#     return redirect(user_type)
 
 
 

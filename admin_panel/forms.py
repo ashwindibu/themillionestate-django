@@ -6,7 +6,7 @@ from turtle import title
 from django import forms
 from django.forms import ChoiceField, HiddenInput, ImageField, ModelChoiceField, SelectMultiple
 from property.models import PropertyFor, PropertyType, Property, Features, Country, State, City
-from base.models import UserType
+
 
 class PropertyTypeForm(forms.ModelForm):
     class Meta:
@@ -29,14 +29,7 @@ class PropertyForForm(forms.ModelForm):
             'property_for_name':forms.TextInput(attrs={'class':'form-control','placeholder':'Name'}),
         }
 
-class UserTypeForm(forms.ModelForm):
-    class Meta:
-        model = UserType
-        fields = ['usertype_name']
 
-        widgets = {
-            'usertype_name':forms.TextInput(attrs={'class':'form-control','placeholder':'Name'}),
-        }
 
 class CountryForm(forms.ModelForm):
     class Meta:

@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block head %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="TheMillionEstate - Real Estate Agency">
+<meta name="keywords" content="Real Estate, Property, Directory Listing, Marketing, Agency,The Million Estate, million estate" />
+<title>Login | TheMillionEstate</title>
+
+<!-- Facebook and Twitter integration -->
+
+<link rel="stylesheet" href="{% static 'login_signup/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+<link rel="stylesheet" href="{% static 'login_signup/css/style.css' %}">
+
+
+<style>
+    .divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+
+#PAGE-TTILE
+
+.page-title2 {
+	padding: 0;
+}
+
+.page-title2 .title2 {
+	padding: 100px 0 50px;
+}
+
+.page-title2 .title--heading {
+	margin-bottom: 20px;
+}
+
+.page-title2 .title--heading h1 {
+	color: #ffffff;
+	font-size: 50px;
+	font-weight: 500;
+	line-height: 1.2;
+	margin-bottom: 0;
+	text-transform: capitalize;
+}
+
+.page-title2 .title--desc p {
+	color: #f9f9f9;
+	font-size: 16px;
+	margin-bottom: 0;
+	font-weight: 400;
+}
+
+.page-title2 .breadcrumb,
+.page-title2 .breadcrumb a {
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1;
+	background: transparent;
+	color: #ffffff;
+}
+
+.page-title2 .breadcrumb .active {
+	color: #64ddbb;
+}
+
+.page-title2 .breadcrumb a:hover {
+	color: #64ddbb;
+}
+
+.page-title2 .breadcrumb > li + li:before {
+	color: #ffffff;
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+
+<section id="page-title" class="page-title2 bg-overlay bg-overlay-dark2">
+    <div class="bg-section">
+        <img src="{% static 'main/images/page-titles/1.jpg' %}" alt="Background" />
+    </div>
+    <div class="">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
+                <div class="title2 title-1 text-center">
+                    <div class="title--content">
+                        <div class="title--heading">
+                            <h1>Login</h1>
+                        </div>
+                        <ol class="breadcrumb">
+                            <li><a href="#">Home</a></li>
+                            <li class="active">Login</li>
+                        </ol>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- .title end -->
+            </div>
+            <!-- .col-md-12 end -->
+        </div>
+        <!-- .row end -->
+    </div>
+    <!-- .container end -->
+</section>
+
+
+   
+    <section class="sign-in">
+        <div class="container">
+            <div class="signin-content">
+                <div class="signin-image">
+                    <figure><img src="{% static 'login_signup/images/signin-image.jpg' %}" alt="sing up image"></figure>
+                    <a href="{{ signup_url }}" class="signup-image-link">Create an account</a>
+                </div>
+                <div class="signin-form">
+                    <h2 class="form-title">Sign in</h2>
+
+                    <form method="POST" action="{% url 'user_login' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text" name="user_email" id="user_email" placeholder="Your Email"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="password" name="user_password" id="user_password" placeholder="Your Password"/>
+                        </div>
+                            <!-- <div class="form-group">
+                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                            </div> -->
+                        <div class="form-group form-button">
+                            <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                        </div>
+                    </form>
+                    <div class="social-login">
+                        <span class="social-label">Or login with</span>
+                        <ul class="socials">
+                            <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                            <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                            <li><a href="{% provider_login_url "google" %}"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- <script>
+        window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove(); 
+        });
+    }, 10000);
+    </script> -->
+   <script>
+    {% for msg in messages %}
+        swal('{{msg}}')
+    {% endfor %}
+   </script>
+<script src="{% static 'login_signup/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'login_signup/js/main.js' %}"></script>
+
+<script src="{% static 'main/js/jquery-2.2.4.min.js'%}"></script>
+
+<script src="{% static 'main/js/plugins.js'%}"></script>
+<script src="{% static 'main/js/functions.js'%}"></script>
+
+
+{% endblock %}

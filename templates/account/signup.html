@@ -1,0 +1,178 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load socialaccount %}
+
+{% block head %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="TheMillionEstate - Real Estate Agency">
+<meta name="keywords" content="Real Estate, Property, Directory Listing, Marketing, Agency,The Million Estate, million estate" />
+<title>Login | TheMillionEstate</title>
+
+<!-- Facebook and Twitter integration -->
+
+<link rel="stylesheet" href="{% static 'login_signup/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+<link rel="stylesheet" href="{% static 'login_signup/css/style.css' %}">
+
+
+
+
+<!-- MDB -->
+
+
+<style>
+    .divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+
+#PAGE-TTILE
+
+.page-title2 {
+	padding: 0;
+}
+
+.page-title2 .title2 {
+	padding: 100px 0 50px;
+}
+
+.page-title2 .title--heading {
+	margin-bottom: 20px;
+}
+
+.page-title2 .title--heading h1 {
+	color: #ffffff;
+	font-size: 50px;
+	font-weight: 500;
+	line-height: 1.2;
+	margin-bottom: 0;
+	text-transform: capitalize;
+}
+
+.page-title2 .title--desc p {
+	color: #f9f9f9;
+	font-size: 16px;
+	margin-bottom: 0;
+	font-weight: 400;
+}
+
+.page-title2 .breadcrumb,
+.page-title2 .breadcrumb a {
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1;
+	background: transparent;
+	color: #ffffff;
+}
+
+.page-title2 .breadcrumb .active {
+	color: #64ddbb;
+}
+
+.page-title2 .breadcrumb a:hover {
+	color: #64ddbb;
+}
+
+.page-title2 .breadcrumb > li + li:before {
+	color: #ffffff;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+<section id="page-title" class="page-title2 bg-overlay bg-overlay-dark2">
+    <div class="bg-section">
+        <img src="{% static 'main/images/page-titles/1.jpg' %}" alt="Background" />
+    </div>
+    <div class="">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
+                <div class="title2 title-1 text-center">
+                    <div class="title--content">
+                        <div class="title--heading">
+                            <h1>Sign Up</h1>
+                        </div>
+                        <ol class="breadcrumb">
+                            <li><a href="#">Home</a></li>
+                            <li class="active">Sign Up</li>
+                        </ol>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- .title end -->
+            </div>
+            <!-- .col-md-12 end -->
+        </div>
+        <!-- .row end -->
+    </div>
+    <!-- .container end -->
+</section>
+
+
+   
+<!-- Sign up form -->
+<section class="signup">
+    <div class="container">
+        <div class="signup-content">
+            <div class="signup-form">
+                <h2 class="form-title">Sign up</h2>
+                <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                   
+                    <div class="form-group form-button">
+                        <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                    </div>
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                </form>
+            </div>
+            <div class="signup-image">
+                <figure><img src="{% static 'login_signup/images/signup-image.jpg' %}" alt="sing up image"></figure>
+                <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+                <div class="social-login">
+                    <span class="social-label">Or login with</span>
+                    <ul class="socials">
+                        <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                        <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                        <li><a href="{% provider_login_url "google" %}"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</section>
+
+
+
+<!-- JS -->
+<script src="{% static 'login_signup/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'login_signup/js/main.js' %}"></script>
+
+<script src="{% static 'main/js/jquery-2.2.4.min.js'%}"></script>
+
+<script src="{% static 'main/js/plugins.js'%}"></script>
+<script src="{% static 'main/js/functions.js'%}"></script>
+
+
+{% endblock %}
+

@@ -11,6 +11,8 @@
             object-position: center;
         }
     </style>
+
+
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 {% endblock %}
 
@@ -175,6 +177,14 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="heading heading-2 text-center mb-70">
+                            {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                         {{message}}
+                    </div>
+                    {% endfor %}
                             <h2 class="heading--title">Latest Properties</h2>
 
                             <p class="heading--desc">Duis aute irure dolor in reprehed in volupted velit esse dolore</p>
@@ -512,7 +522,7 @@
         <!-- cta #1
 ============================================= -->
         <section id="cta" class="cta cta-1 text-center bg-overlay bg-overlay-dark pt-90">
-            <div class="bg-section"><img src="assets/images/cta/bg-1.jpg" alt="Background"></div>
+            <div class="bg-section"><img src="assets/main/images/cta/bg-1.jpg" alt="Background"></div>
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
@@ -532,6 +542,7 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+    
     <script>
         //for giving suggestions in search box by calling an API
         $(function(){
@@ -541,9 +552,10 @@
         }); 
     });
     </script>
-    <script src="{% static 'js/jquery-2.2.4.min.js'%}"></script>
-    <script src="{% static 'js/plugins.js'%}"></script>
-    <script src="{% static 'js/functions.js'%}"></script>
+    <script src="{% static 'main/js/jquery-2.2.4.min.js'%}"></script>
+    <script src="{% static 'main/js/plugins.js'%}"></script>
+    <script src="{% static 'main/js/functions.js'%}"></script>
+
 
 
 {% endblock %}

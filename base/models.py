@@ -3,8 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 # Create your models here.
 
-class UserType(models.Model):
-    usertype_name = models.CharField(max_length=50)
+
 
 class MyAccountManager(BaseUserManager):
     def create_user(self, full_name, email, password=None):
@@ -35,12 +34,17 @@ class MyAccountManager(BaseUserManager):
         return user
 
 class Account(AbstractBaseUser):
+    class UserType(models.TextChoices):
+        OWNER           = 'Owner'
+        DEALER          = 'Dealer'
+
+    username = None
     full_name           = models.CharField(max_length=50)   
     email               = models.EmailField(max_length=100, unique=True)
     phone_number        = models.CharField(max_length=50)
     profile             = models.ImageField(upload_to='photo/user_profile')
     city                = models.CharField(max_length=100)
-    usertype_id         = models.ForeignKey(UserType, on_delete=models.SET_NULL, null=True)
+    user_type           = models.CharField(max_length=30, choices=UserType.choices, null=True, blank=True)
 
     # required
     date_joined         = models.DateTimeField(auto_now_add=True)
@@ -53,8 +57,12 @@ class Account(AbstractBaseUser):
     USERNAME_FIELD      = 'email'
     REQUIRED_FIELDS     = ['full_name']
 
+
     objects = MyAccountManager()
 
+    def __str__(self):
+        return self.email
+        
     def has_perm(self, perm, obj=None):
         return self.is_admin
     
