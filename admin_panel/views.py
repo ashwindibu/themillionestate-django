@@ -211,7 +211,6 @@ def admin_add_property(request):
             bedroom            = request.POST.get('bedroom')
             bathroom           = request.POST.get('bathroom')
             balcony            = request.POST.get('balcony')
-            locality           = request.POST.get('locality')
             carpet_area        = request.POST.get('carpet_area')
             builtup_area       = request.POST.get('builtup_area')
             superbuiltup_area  = request.POST.get('superbuiltup_area')

@@ -1,6 +1,6 @@
 import re
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from property.models import Image, Property, PropertyFor, PropertyType, City, State, Features
 from django.db.models import Q
@@ -8,7 +8,7 @@ from django.contrib import messages, auth
 from .models import Account
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth import authenticate, login, logout
-from .forms import CreateUserForm ,UserProfileForm
+from .forms import CreateUserForm ,UserProfileForm, FeaturesForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -151,14 +151,18 @@ def propertys(request, category_slug=None):
     return render(request, 'propertys.html', context)
 
 def property_single(request, pk):
-    pk = int(pk)
-    property = Property.objects.get(id=pk)
-    
-    image    = Image.objects.filter(property_id=pk)
+    pk          = int(pk)
+    property    = Property.objects.get(id=pk)
+    try:
+        property_features = Features.objects.get(property_id_id = pk)
+    except:
+        property_features = None
+    image             = Image.objects.filter(property_id=pk)
     
     context = {
         'property':property,
-        'image':image
+        'image':image,
+        'features':property_features,
     }
     return render(request, 'property-single.html', context)
 
@@ -267,12 +271,181 @@ def user_profile(request):
     return render(request, 'user-profile.html', context)
 
 def my_property(request):
-    return render(request, 'my-property.html')
+    user = request.user
+    
+    user_id = int(user.id)
+    property = Property.objects.all().filter(user_id_id=11)
+    print(property)
+    paginator       = Paginator(property, 6)
+    page            = request.GET.get('page')
+    property_details      = paginator.get_page(page)
+    context = {
+        'datas':property_details
+    }
+    return render(request, 'my-property.html',context)
 
 def favourite_property(request):
     return render(request, 'favourite-property.html')
 
 @login_required
 def add_property(request):
-  
-    return render(request, 'add-property.html')
+    property_for        = PropertyFor.objects.all()
+    property_type       = PropertyType.objects.all()
+    property_data       = Property()
+    city                = City.objects.all()
+    features_form       = FeaturesForm()
+    context = {
+        "property_for":property_for,
+        "property_type":property_type,
+        "furnishing_status":property_data.FurnishingStatus,
+        "available_for":property_data.AvailableFor,
+        "property_status":property_data.PropertyStatus,
+        "city":city,
+        "features_form":features_form
+    }
+
+    if request.method == "POST":
+        price           = request.POST.get('property_price')
+        description     = request.POST.get('description')
+        locality        = request.POST.get('locality')
+        bedroom         = request.POST.get('bedroom')
+        bathroom        = request.POST.get('bathroom')
+        balcony         = request.POST.get('balcony')
+        carpet_area     = request.POST.get('carpet_area')
+        builtup_area       = request.POST.get('builtup_area')
+        superbuiltup_area  = request.POST.get('superbuiltup_area')
+        floors             = request.POST.get('floor')
+        property_age       = request.POST.get('property_age')
+        property_status    = request.POST.get('property_status')
+        furnishing_status  = request.POST.get('furnishing_status')
+        available_for      = request.POST.get('available_for')
+        featured_image     = request.FILES.get('featured_image')
+        parking            = request.POST.get('parking')
+        publish            = request.POST.get('publish')
+        property_for_data  = request.POST.get('property-for')
+        property_type_data = request.POST.get('property-type')
+        city               = request.POST.get('city')
+        accounts           = Account.objects.get(email=request.user)
+        accountid          = accounts.id
+        if builtup_area=='':
+            builtup_area=None
+        if superbuiltup_area=='':
+            superbuiltup_area=None
+        if property_age=='':
+            property_age==None
+        if parking=='':
+            parking=None
+        if balcony=='':
+            balcony=None
+        print(publish)
+        print(floors)
+        print(accountid)
+        print("Hello ", property_type_data)
+        if publish:
+            publish_on = True
+        else:
+            publish_on = False  
+        
+        # Auto Generated Title
+        propertytype       = PropertyType.objects.get(id=property_type_data)
+        bhk                = str(bedroom) + " BHK"
+        title              = bhk + propertytype.property_type_name+" in "+ str(locality)
+        print(title)
+
+        # Indian Currency Format Words
+        def format_indian(t):
+            dic = {
+                                4:'Thousand',
+                                5:'Lakh',
+                                6:'Lakh',
+                                7:'Crore',
+                                8:'Crore',
+                                9:'Billion'
+                            }
+            y = 10
+            len_of_number = len(str(t))
+            save = t
+            z=y
+            while(t!=0):
+                t=int(t/y)
+                z*=10
+
+            zeros = len(str(z)) - 3
+            if zeros>3:
+                if zeros%2!=0:
+                    string = str(save/(z/100))[0:4]+" "+dic[zeros]
+                else:   
+                    string = str(save/(z/1000))[0:4]+" "+dic[zeros]
+                return string
+            return str(save)
+        if price:
+            indian_currency = format_indian(int(price))
+            print(indian_currency)
+
+        property_details = Property.objects.create(
+            property_for_id_id      = property_for_data,
+            property_type_id_id     = property_type_data,
+            city_id_id              = city,
+            locality                = locality,
+            bedroom                 = bedroom,
+            bathroom                = bathroom,
+            balcony                 = balcony,
+            carpet_area             = carpet_area,
+            builtup_area = builtup_area,
+            superbuiltup_area = superbuiltup_area,
+            floors = floors,
+            property_age = property_age,
+            parking = parking,
+            title = title,
+            description = description, 
+            price = price,
+            indian_currency = indian_currency,
+            furnishing_status = furnishing_status,
+            available_for = available_for,
+            property_status = property_status,
+            featured_image = featured_image,
+            published = publish_on,
+            user_id_id = accountid,
+        )
+        print(features_form)
+        if features_form.is_valid():
+            print(features_form.cleaned_data)
+            features = Features()
+            features.property_id_id = property_details.id
+            features.swimming_pool  = features_form.cleaned_data['swimming_pool']
+            features.visitor_parking = features_form.cleaned_data['visitor_parking']
+            features.power_backup = features_form.cleaned_data['power_backup']
+            features.security_firealarm = features_form.cleaned_data['security_firealarm']
+            features.lift = features_form.cleaned_data['lift']
+            features.fitness_centre = features_form.cleaned_data['fitness_centre']
+            features.childrens_park = features_form.cleaned_data['childrens_park']
+            features.club_house = features_form.cleaned_data['club_house']
+            features.multipurpose_room = features_form.cleaned_data['multipurpose_room']
+            features.sports_facility = features_form.cleaned_data['sports_facility']
+            features.rain_water_harvesting = features_form.cleaned_data['rain_water_harvesting']
+            features.intercom = features_form.cleaned_data['intercom']
+            features.maintenance_staff = features_form.cleaned_data['maintenance_staff']
+            features.water_purifier = features_form.cleaned_data['water_purifier']
+            features.vaastu_compliant = features_form.cleaned_data['vaastu_compliant']
+            features.natural_light = features_form.cleaned_data['natural_light']
+            features.wifi_connectivity = features_form.cleaned_data['wifi_connectivity']
+            features.atm = features_form.cleaned_data['atm']
+            features.waste_disposal = features_form.cleaned_data['waste_disposal']
+            features.piped_gas = features_form.cleaned_data['piped_gas']
+            features.save()
+            print("Entered Feature Form")
+
+        images             = request.FILES.getlist('image')
+        print(property_details)
+        if images:
+            for image in images:
+                img = Image()
+                img.property = property_details
+                img.image = image
+                img.save()
+
+        print(property_details.id)
+        messages.success(request,'Property Added Succesfully')
+        return redirect(my_property)
+
+    return render(request, 'add-property.html', context)
