@@ -66,6 +66,16 @@
 <!-- #my properties
 ============================================= -->
 <section id="my-properties" class="my-properties properties-list">
+    
+    {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+         {{message}}
+    </div>
+    {% endfor %}
+
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-4">
@@ -80,15 +90,18 @@
             </div>
             <!-- .col-md-4 -->
             <div class="col-xs-12 col-sm-8 col-md-8">
-
+            
                 {% if datas %}
                 {% for data in datas %}
                 <!-- .property-item #1 -->
                 <div class="property-item">
                     <div class="property--img">
                         <a href="#">
+                {% if data.featured_image %}
                 <img src="{{data.featured_image.url}}" alt="property image" class="img-responsive image-resize">
-
+                {% else %}
+                
+                {% endif %}
                 {% if data.property_for_id.property_for_name == 'Sale' %}
                 <span class="property--status">For {{data.property_for_id.property_for_name}}</span>
                 {% elif data.property_for_id.property_for_name == 'Rent' %}
@@ -108,9 +121,11 @@
                                 <li><span class="feature">Beds:</span><span class="feature-num">{{data.bedroom}}</span></li>
                                 <li><span class="feature">Baths:</span><span class="feature-num">{{data.bathroom}}</span></li>
                                 <li><span class="feature">Carpet Area::</span><span class="feature-num">{{data.carpet_area}} sq ft</span></li>
+                                
 
                             </ul>
-                            <a href="#" class="edit--btn"><i class="fa fa-edit"></i>Edit</a>
+                            <a href="{% url 'my-property-edit' data.id %}" class="edit--btn"><i class="fa fa-edit"></i>Edit</a>
+
                         </div>
                         <!-- .property-features end -->
                     </div>

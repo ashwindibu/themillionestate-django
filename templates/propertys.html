@@ -395,7 +395,11 @@
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="{% url 'property_single' property.id %}">
+                        {% if property.featured_image %}
                         <img src="{{property.featured_image.url}}" alt="property image" class="img-responsive image-resize">
+                        {% else %}
+
+                        {% endif %}
                         </a>
                                     <span class="property--status">For {{property.property_for_id.property_for_name}}</span>
                                 </div>

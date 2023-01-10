@@ -76,7 +76,7 @@ class Property(models.Model):
     published                   = models.BooleanField(default=True)
     created_at                  = models.DateTimeField(auto_now_add=True)
     updated_at                  = models.DateTimeField(auto_now=True)
-    featured_image              = models.ImageField(upload_to='photo/featured_image')
+    featured_image              = models.ImageField(upload_to='photo/featured_image', blank=True, null=True)
     user_id                     = models.ForeignKey(Account, on_delete=models.CASCADE, blank=False, null=False)
     city_id                     = models.ForeignKey(City, on_delete=models.SET_NULL, blank=True, null=True)
     property_type_id            = models.ForeignKey(PropertyType, on_delete=models.SET_NULL, blank=True, null=True)

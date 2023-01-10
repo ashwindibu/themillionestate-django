@@ -13,7 +13,7 @@ class CreateUserForm(UserCreationForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = Account
-        fields = ['email','full_name','phone_number','profile','city', 'user_type']
+        fields = ['email','full_name','phone_number','city']
    
         widgets = { 'user_type' : forms.Select(attrs={'disabled': 'disabled'}), 
                     

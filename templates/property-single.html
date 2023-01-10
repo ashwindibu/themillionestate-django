@@ -555,9 +555,9 @@
                         <div class="agent--contact">
                             <ul class="list-unstyled">
                                 {% if property.user_id.phone_number %}
-                                <li><i class="fa fa-phone"></i>{{property.user_id.phone_number}}</li>
+                                <li><i class="fa fa-phone"></i><a href="tel:+{{property.user_id.phone_number}}">{{property.user_id.phone_number}}</a></li>
                                 {% else %}
-                                <li><i class="fa fa-phone"></i>no number</li>
+                                <li><i class="fa fa-phone"></i>No number </li>
                                 {% endif %}
                                 <li><i class="fa fa-envelope-o"></i>{{property.user_id.email}}</li>
                                 <a href = "mailto:{{property.user_id.email}}?subject = Feedback&body = Messagefsfdsf">

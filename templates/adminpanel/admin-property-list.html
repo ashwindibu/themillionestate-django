@@ -67,7 +67,9 @@
                             <div class="property-card property-horizontal card">
                                 <div class="row">
                                     <div class="col-sm-4">
+                                        {% if data.featured_image %}
                                         <div class="property-image" style="background: url({{data.featured_image.url}}) center center / cover no-repeat;">
+                                        {% endif %}
                                             {% if data.property_for_id.property_for_name == 'Sale' %}
                                             <span class="property-label badge badge-danger">For {{data.property_for_id.property_for_name}}</span>
                                             {% elif data.property_for_id.property_for_name == 'Rent' %}

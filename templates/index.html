@@ -205,8 +205,11 @@
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
+                                        {% if latest_property.featured_image %}
                                         <img src="{{latest_property.featured_image.url}}" alt="property image"
                                             class="img-responsive image-resize">
+                                        {% endif %}
+
                                         <span class="property--status">For {{latest_property.property_for_id.property_for_name}}</span>
                                     </a>
                                 </div>

@@ -16,6 +16,8 @@ urlpatterns = [
     path('favourite-property', views.favourite_property, name="favourite_property"),
     path('add-property', views.add_property, name="add_property"),
     path('user-register', views.user_register, name="user_register"),
+    path('my_property_edit/<str:pk>/', views.my_property_edit, name="my-property-edit"),
+    path('my_property_delete/<str:pk>/', views.my_property_delete, name="my-property-delete"),
     # path('accounts/login/', views.user_login, name="account_login")
 
  ]
