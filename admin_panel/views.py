@@ -358,17 +358,25 @@ def admin_add_property(request):
 #Property Edit
 def admin_edit_property(request, pk):
     if request.session.has_key('admin'):
-        pk = int(pk)
+        pk              = int(pk)
         property        = Property.objects.get(id=pk)
         property_image  = Image.objects.all().filter(property=pk)
         property_for    = PropertyFor.objects.all()
         property_type   = PropertyType.objects.all()
         property_data   = Property()
         city            = City.objects.all()
-        featrued_image_check = False
+        featured_image_check = False
         if property.featured_image:
-            featrued_image_check = True
+            featured_image_check = True
 
+
+        features_data_f = Features.objects.filter(property_id_id=pk)
+        if features_data_f:
+            features_data = Features.objects.get(property_id_id=pk)
+            features_form = FeaturesForm(instance=features_data)
+        else:
+            features_form = FeaturesForm()
+            
         context = {
             "property":property,
             "property_for":property_for,
@@ -378,9 +386,11 @@ def admin_edit_property(request, pk):
             "property_status":property_data.PropertyStatus,
             "city":city,
             "property_image":property_image,
-            "featrued_image_check":featrued_image_check,
+            "featrued_image_check":featured_image_check,
+            "features_form":features_form
         }
-        if request.method == "POST" and 'btnform1' in request.POST and request.FILES:
+
+        if request.method == "POST" and 'btnform1':
             titledemo          = request.POST.get('title')
             slug               = request.POST.get('slug')
             price              = request.POST.get('property_price')
@@ -399,16 +409,22 @@ def admin_edit_property(request, pk):
             property_status    = request.POST.get('property_status')
             furnishing_status  = request.POST.get('furnishing_status')
             available_for      = request.POST.get('available_for')
-            featured_image     = request.FILES['featured_image']
+            featured_image     = request.FILES.get('featured_image')
             parking            = request.POST.get('parking')
             publish            = request.POST.get('publish')
             property_for_data  = request.POST.get('property-for')
             property_type_data = request.POST.get('property-type')
             city               = request.POST.get('city')
-            account            = Account.objects.get(is_superadmin=1)
-            print(property.featured_image.path)
-            if os.path.exists(property.featured_image.path):
-                os.remove(property.featured_image.path)
+            account            = request.user
+            print(account)
+            if featured_image: 
+                if property.featured_image:
+                    if os.path.exists(property.featured_image.path):
+                        os.remove(property.featured_image.path)
+            else:
+                if property.featured_image:
+                    if os.path.exists(property.featured_image.path):
+                        featured_image = property.featured_image
             if builtup_area=='':
                 builtup_area=None
             if superbuiltup_area=='':
@@ -421,8 +437,10 @@ def admin_edit_property(request, pk):
                 balcony=None
             if floors=='':
                 floors=None
-            
+    
+
             # Publishing On or Off
+            print(bedroom)
             print(publish)
             print("Hello ", property_type_data)
             if publish:
@@ -466,45 +484,98 @@ def admin_edit_property(request, pk):
                 indian_currency = format_indian(int(price))
                 print(indian_currency)
 
-            
-            Property.objects.filter(id=pk).update(
-                property_for_id_id = property_for_data,
-                property_type_id_id = property_type_data,
-                city_id_id = city,
-                locality = locality,
-                bedroom = bedroom,
-                bathroom = bathroom,
-                balcony = balcony,
-                carpet_area = carpet_area,
-                builtup_area = builtup_area,
-                superbuiltup_area = superbuiltup_area,
-                floors = floors,
-                property_age = property_age,
-                parking = parking,
-                title = title,
-                description = description, 
-                price = price,
-                indian_currency = indian_currency,
-                furnishing_status = furnishing_status,
-                available_for = available_for,
-                property_status = property_status,
-                featured_image = featured_image,
-                published = publish_on,
-                user_id = account,
-                )
 
-                
+            property.property_for_id_id = property_for_data
+            property.property_type_id_id = property_type_data
+            property.city_id_id = city
+            property.locality = locality
+            property.bedroom = bedroom
+            property.bathroom = bathroom
+            property.balcony = balcony
+            property.carpet_area = carpet_area
+            property.builtup_area = builtup_area
+            property.superbuiltup_area = superbuiltup_area
+            property.floors = floors
+            property.property_age = property_age
+            property.parking = parking
+            property.title = title
+            property.description = description
+            property.price = price
+            property.indian_currency = indian_currency
+            property.furnishing_status = furnishing_status
+            property.available_for = available_for
+            property.property_status = property_status
+            property.featured_image = featured_image
+            property.published = publish_on
+            property.user_id = account
+            property.save()
 
+            # Property.objects.filter(id=pk).update(
+            #     property_for_id_id = property_for_data,
+            #     property_type_id_id = property_type_data,
+            #     city_id_id = city,
+            #     locality = locality,
+            #     bedroom = bedroom,
+            #     bathroom = bathroom,
+            #     balcony = balcony,
+            #     carpet_area = carpet_area,
+            #     builtup_area = builtup_area,
+            #     superbuiltup_area = superbuiltup_area,
+            #     floors = floors,
+            #     property_age = property_age,
+            #     parking = parking,
+            #     title = title,
+            #     description = description, 
+            #     price = price,
+            #     indian_currency = indian_currency,
+            #     furnishing_status = furnishing_status,
+            #     available_for = available_for,
+            #     property_status = property_status,
+            #     featured_image = featured_image,
+            #     published = publish_on,
+            #     user_id = account,
+            #     )
+            features_form = FeaturesForm(request.POST)
+            if features_form.is_valid():
+                print(features_form.cleaned_data)
+                features_data_f = Features.objects.filter(property_id_id=pk)
+                if features_data_f:
+                    features = Features.objects.get(property_id_id=pk)
+                    features.property_id_id = pk
+
+                else:
+                    features = Features()
+                features.property_id_id = pk
+                features.swimming_pool = features_form.cleaned_data['swimming_pool']
+                features.visitor_parking = features_form.cleaned_data['visitor_parking']
+                features.power_backup = features_form.cleaned_data['power_backup']
+                features.security_firealarm = features_form.cleaned_data['security_firealarm']
+                features.lift = features_form.cleaned_data['lift']
+                features.fitness_centre = features_form.cleaned_data['fitness_centre']
+                features.childrens_park = features_form.cleaned_data['childrens_park']
+                features.club_house = features_form.cleaned_data['club_house']
+                features.multipurpose_room = features_form.cleaned_data['multipurpose_room']
+                features.sports_facility = features_form.cleaned_data['sports_facility']
+                features.rain_water_harvesting = features_form.cleaned_data['rain_water_harvesting']
+                features.intercom = features_form.cleaned_data['intercom']
+                features.maintenance_staff = features_form.cleaned_data['maintenance_staff']
+                features.water_purifier = features_form.cleaned_data['water_purifier']
+                features.vaastu_compliant = features_form.cleaned_data['vaastu_compliant']
+                features.natural_light = features_form.cleaned_data['natural_light']
+                features.wifi_connectivity = features_form.cleaned_data['wifi_connectivity']
+                features.atm = features_form.cleaned_data['atm']
+                features.waste_disposal = features_form.cleaned_data['waste_disposal']
+                features.piped_gas = features_form.cleaned_data['piped_gas']
+                features.save()
+                print("Entered Feature Form")
             images             = request.FILES.getlist('image')
-            print(property.id)
             if images:
                 for image in images:
                     img = Image()
                     img.property = property
                     img.image = image
                     img.save()
-
-            messages.success(request,'Property Updated Succesfully')
+            messages.success(request, 'Property Updated Successfully')            
             return redirect(admin_property_list)
 
         if request.method == "POST" and 'btnform2':

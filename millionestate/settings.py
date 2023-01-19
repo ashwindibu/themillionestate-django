@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'property',
     'admin_panel',
     'ckeditor',
+    'django_social_share',
 
     'django.contrib.sites',
     'allauth',

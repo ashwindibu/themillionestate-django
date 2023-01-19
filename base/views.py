@@ -152,6 +152,7 @@ def propertys(request, category_slug=None):
 
 def property_single(request, pk):
     pk          = int(pk)
+    similar_property = Property.objects.all().filter(published=True).order_by('-created_at')[:6]
     property    = Property.objects.get(id=pk)
     try:
         property_features = Features.objects.get(property_id_id = pk)
@@ -160,6 +161,7 @@ def property_single(request, pk):
     image             = Image.objects.filter(property_id=pk)
     
     context = {
+        'similar_property':similar_property,
         'property':property,
         'image':image,
         'features':property_features,

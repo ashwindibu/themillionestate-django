@@ -204,7 +204,7 @@
                             {% for latest_property in latest_propertys %}
                             <div class="property-item">
                                 <div class="property--img">
-                                    <a href="#">
+                                    <a href="{% url 'property_single' latest_property.id %}">
                                         {% if latest_property.featured_image %}
                                         <img src="{{latest_property.featured_image.url}}" alt="property image"
                                             class="img-responsive image-resize">
@@ -215,7 +215,7 @@
                                 </div>
                                 <div class="property--content">
                                     <div class="property--info">
-                                        <h5 class="property--title"><a href="#">{{latest_property.title}}</a></h5>
+                                        <h5 class="property--title"><a href="{% url 'property_single' latest_property.id %}">{{latest_property.title}}</a></h5>
                                         <p class="property--location">{{latest_property.locality}}</p>
                                         <p class="property--price">₹{{latest_property.indian_currency}}</p>
                                     </div>
@@ -424,102 +424,7 @@
 
         <!-- agents
 ============================================= -->
-        <section id="agents" class="agents bg-white">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="heading heading-2 text-center mb-70">
-                            <h2 class="heading--title">Trusted Agents</h2>
-                            <p class="heading--desc">Duis aute irure dolor in reprehed in volupted velit esse dolore</p>
-                        </div>
-                        <!-- .heading end -->
-                    </div>
-                    <!-- .col-md-12 end -->
-                </div>
-                <!-- .row end -->
-                <div class="row">
-                    <!-- agent #1 -->
-                    <div class="col-xs-12 col-sm-4 col-md-4">
-                        <div class="agent">
-                            <div class="agent--img">
-                                <img src="assets/images/agents/grid/1.png" alt="agent" />
-                                <div class="agent--details">
-                                    <p>Lorem ipsum dolor sit amet, consece adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore dolore.</p>
-                                    <div class="agent--social-links">
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- .agent-img end -->
-                            <div class="agent--info">
-                                <h5 class="agent--title">Steve Martin</h5>
-                                <h6 class="agent--position">Buying Agent</h6>
-                            </div>
-                            <!-- .agent-info end -->
-                        </div>
-                        <!-- .agent end -->
-                    </div>
-                    <!-- .col-md-4 end -->
-                    <!-- agent #2 -->
-                    <div class="col-xs-12 col-sm-4 col-md-4">
-                        <div class="agent">
-                            <div class="agent--img">
-                                <img src="assets/images/agents/grid/2.png" alt="agent" />
-                                <div class="agent--details">
-                                    <p>Lorem ipsum dolor sit amet, consece adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore dolore.</p>
-                                    <div class="agent--social-links">
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- .agent-img end -->
-                            <div class="agent--info">
-                                <h5 class="agent--title">Mark Smith</h5>
-                                <h6 class="agent--position">Selling Agent</h6>
-                            </div>
-                            <!-- .agent-info end -->
-                        </div>
-                        <!-- .agent end -->
-                    </div>
-                    <!-- .col-md-4 end -->
-                    <!-- agent #3 -->
-                    <div class="col-xs-12 col-sm-4 col-md-4">
-                        <div class="agent">
-                            <div class="agent--img">
-                                <img src="assets/images/agents/grid/3.png" alt="agent" />
-                                <div class="agent--details">
-                                    <p>Lorem ipsum dolor sit amet, consece adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore dolore.</p>
-                                    <div class="agent--social-links">
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- .agent-img end -->
-                            <div class="agent--info">
-                                <h5 class="agent--title">Ryan Printz</h5>
-                                <h6 class="agent--position">Real Estate Broker</h6>
-                            </div>
-                            <!-- .agent-info end -->
-                        </div>
-                        <!-- .agent end -->
-                    </div>
-                    <!-- .col-md-4 end -->
-
-                </div>
-            </div>
-        </section>
+    
         <!-- #agents end  -->
 
         <!-- cta #1
@@ -530,7 +435,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
                         <h3>Join our professional team & agents to start selling your house</h3>
-                        <a href="tel:+919539115577" class="btn btn--primary">Contact</a>
+                        <a href="{% url 'contact' %}" class="btn btn--primary">Contact</a>
                         
                     </div>
                     <!-- .col-md-6 -->
