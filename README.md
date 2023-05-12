@@ -53,7 +53,26 @@ Python need to be installed
 
 ## Screenshots
 
-![Screenshot from 2022-02-18 16-16-31](https://user-images.githubusercontent.com/91023534/154668335-38a8acb7-cb45-4813-8560-e05542927356.png)
+![Screenshot (122)](https://github.com/ashwindibu/themillionestate-django/assets/92941960/25828dd2-b9a3-4808-a49c-5c0cf1970c78)
+
+![Screenshot (123)](https://github.com/ashwindibu/themillionestate-django/assets/92941960/be3c23d1-34f5-4181-bf58-9c8df109f2e4)
+
+
+![Screenshot (124)](https://github.com/ashwindibu/themillionestate-django/assets/92941960/611285f1-dd6d-4f47-8bcf-36649f00f0de)
+
+![12_05_2023 08_46_16 PM](https://github.com/ashwindibu/themillionestate-django/assets/92941960/e475f5a5-d1e7-4343-96e4-27c7b597fd5c)
+
+![Screenshot (127)](https://github.com/ashwindibu/themillionestate-django/assets/92941960/79d99b54-da28-4760-bd73-92592ad790a4)
+
+![Screenshot (128)](https://github.com/ashwindibu/themillionestate-django/assets/92941960/48660bb4-0289-401b-9c80-093144252e3f)
+
+![Screenshot (129)](https://github.com/ashwindibu/themillionestate-django/assets/92941960/2d655cb8-6d77-4256-a295-9d2a825a280b)
+
+![Screenshot (130)](https://github.com/ashwindibu/themillionestate-django/assets/92941960/d03f08bc-2a11-4dfb-b1c8-44a5030392bd)
+
+![Screenshot (132)](https://github.com/ashwindibu/themillionestate-django/assets/92941960/65feb644-ee3e-4b4a-abdc-2f263fa31c41)
+
+
 
 ## Support
 
