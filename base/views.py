@@ -279,7 +279,7 @@ def my_property(request):
     user = request.user
     
     user_id = int(user.id)
-    property = Property.objects.all().filter(user_id_id=11)
+    property = Property.objects.all().filter(user_id_id=user_id)
     print(property)
     paginator       = Paginator(property, 6)
     page            = request.GET.get('page')
