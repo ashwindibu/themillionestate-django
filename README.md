@@ -1,7 +1,7 @@
 
 # About The Project
 
-MillionEstate is an Property listing application build with Python Django Framework.In this Project I added Search and filter functionality in Home and Propertys page. We provide Login & Signup system for user. Integrated Google api for Social Authentication. User can add property and update profile, In Admin panel admin can Add,Edit & Delete the Property. admin can add Property type, Property For, & location. CRUD Operations are used in this Project.
+MillionEstate is an Property listing application build with Python Django Framework.In this Project I added Search and filter functionality in Home and Propertys page. We provide Login & Signup system for user. Integrated Google api for Social Authentication. User can add property, edit property, delete property and update profile, In Admin panel admin can Add,Edit & Delete the Property. admin can add Property type, Property For, & location. CRUD Operations are used in this Project.
 ## 🗒️Installation setup
 
 Python need to be installed
